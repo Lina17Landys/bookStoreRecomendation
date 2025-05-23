@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 // Páginas
@@ -15,21 +15,19 @@ import EditarPerfilPage from './pages/EditarPerfilPage/EditarPerfilPage';
 
 function App() {
   return (
-    <Router>
-      <div id="app-wrapper">
-        <Routes>
-          <Route path="/landing" element={<LandingPage />} />
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/selection1" element={<SelectionPage1 />} />
-          <Route path="/selection2" element={<SelectionPage2 />} />
-          <Route path="/selection3" element={<SelectionPage3 />} />
-          <Route path="/libros" element={<LibrosPage />} />
-          <Route path="/usuario" element={<UsuarioPage />} />
-          <Route path="/editar-perfil" element={<EditarPerfilPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <div id="app-wrapper">
+      <Routes>
+        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/selection1" element={<SelectionPage1 />} />
+        <Route path="/selection2" element={<SelectionPage2 />} />
+        <Route path="/selection3" element={<SelectionPage3 />} />
+        <Route path="/libros" element={<LibrosPage />} />
+        <Route path="/usuario" element={<UsuarioPage />} />
+        <Route path="/editar-perfil" element={<EditarPerfilPage />} />
+      </Routes>
+    </div>
   );
 }
 
