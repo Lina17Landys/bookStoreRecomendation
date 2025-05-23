@@ -3,15 +3,18 @@ import './Login.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseConfig';
 import logo from '../../assets/logo.svg'; 
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert('Inicio de sesión exitoso');
+      navigate('/selection1');
     } catch (error) {
       alert('Error al iniciar sesión: ' + error.message);
     }
