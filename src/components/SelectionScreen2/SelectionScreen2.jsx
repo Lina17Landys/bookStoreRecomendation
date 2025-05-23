@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SelectionScreen2.css';
 import logo from '../../assets/logo.svg';
 
@@ -17,6 +18,7 @@ const generosOpciones = [
 
 const SelectionScreen2 = () => {
   const [seleccionados, setSeleccionados] = useState([]);
+  const navigate = useNavigate();
 
   const toggleSeleccion = (genero) => {
     if (seleccionados.includes(genero)) {
@@ -28,8 +30,7 @@ const SelectionScreen2 = () => {
 
   const handleContinuar = () => {
     if (seleccionados.length === 3) {
-      console.log('Géneros favoritos:', seleccionados);
-      // window.location.href = '/selection3';
+      navigate('/selection3');
     }
   };
 

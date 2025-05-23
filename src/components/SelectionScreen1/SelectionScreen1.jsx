@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SelectionScreen1.css';
 import logo from '../../assets/logo.svg';
 
@@ -16,6 +17,7 @@ const librosIniciales = [
 ];
 
 const SelectionScreen1 = () => {
+  const navigate = useNavigate();
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
@@ -68,8 +70,7 @@ const SelectionScreen1 = () => {
 
   const handleContinuar = () => {
     if (seleccionados.length === 3) {
-      console.log('Libros leídos:', seleccionados);
-      // window.location.href = '/selection2';
+      navigate('/selection2');
     }
   };
 
