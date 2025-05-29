@@ -1,0 +1,151 @@
+
+
+
+.selection-screen {
+
+  position: absolute;
+  inset: 0;
+  background-color: #f6f3ee;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-family: 'Archivo', sans-serif;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+     
+}
+
+.selection-title {
+  font-size: 20px;
+  color: #382110;
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: bold;
+  justify-content: center;
+  padding-top: 65px;
+}
+
+.buscador-libro {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 32px;
+  display: block;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: white;
+}
+
+.libros-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.libros-fila {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.libro-tarjeta {
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.libro-tarjeta.seleccionado {
+  border-color: #ff5a1f;
+}
+
+.libro-imagen {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.botones-navegacion {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.boton-anterior,
+.boton-siguiente {
+  padding: 12px 32px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.boton-anterior {
+  background-color: #cfc8c0;
+  color: black;
+}
+
+.boton-siguiente {
+  background-color: #ff5a1f;
+  color: white;
+  font-weight: bold;
+}
+
+.boton-siguiente:disabled {
+  background-color: #ffd4bc;
+  cursor: not-allowed;
+}
+
+.selection-header {
+  width: 100%;
+  display: flex;
+  height: 85px;
+  padding: 10px 50px;
+  justify-content: flex-start;
+  align-items: center;
+  border: 0.5px solid rgba(78, 61, 46, 0.20);
+  background: #F3F1EB;
+  box-sizing: border-box;
+}
+
+.selection-logo {
+  height: 32px;
+  object-fit: contain;
+}
+
+.selection-nav {
+  display: flex;
+  gap: 32px;
+  margin-left: 30px;
+}
+
+.selection-nav a {
+  text-decoration: none;
+  color: #382110;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.selection-nav a.activo {
+  font-weight: bold;
+}
+.genero-imagen {
+  width: 120px;
+  height: 180px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  color: #382110;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
