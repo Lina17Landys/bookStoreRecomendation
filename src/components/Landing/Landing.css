@@ -4,7 +4,6 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    width: 100%;
     overflow-x: hidden;
 }
 
@@ -16,7 +15,7 @@ body {
     text-align: center;
     background-color: #f7f4ef;
     padding: 80px 20px 0 20px;
-    min-height: 100vh;
+    min-height: 70vh;
     position: relative;
   }
   
@@ -26,6 +25,7 @@ body {
     color: #4a3b2c;
     max-width: 700px;
     margin-bottom: 20px;
+    margin-top: 50px;
   }
   
   #landing-title strong,
@@ -63,4 +63,18 @@ body {
     height: 330px;
   }
   
- 
+  .books-banner {
+    background-color: #f7f4ef; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 0; 
+    overflow: hidden;
+  }
+  
+  .books-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
