@@ -1,0 +1,58 @@
+#guiaPasos-wrapper {
+    background-color: #fdfaf5;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    width: 1020px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+  }
+  
+  .contenedor-centrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+  .pasos-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .paso {
+    flex: 1;
+    background-color: #fdfaf5;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .numero {
+    width: 60px;
+    height: 60px;
+    background-color: #4a3b30;
+    color: white;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    font-weight: bold;
+  }
+  
+  .paso h3 {
+    font-size: 20px;
+    color: #4a3b30;
+    margin-bottom: 10px;
+  }
+  
+  .paso p {
+    color: #4a3b30;
+    font-size: 16px;
+  }
+  

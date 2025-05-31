@@ -1,0 +1,30 @@
+.section-landing {
+margin-top: -50px;
+margin-bottom: 30px;
+}
+
+.quote-final {
+    text-align: center;
+    font-size: 28px;
+    line-height: 1.4;
+    color: #4a3b2c;
+    font-weight: 400;
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+  }
+  
+  .quote-final .bold {
+    font-weight: 700;
+  }
+  
+  .divider {
+    border: none;
+    height: 3px;
+    background-color: #4E3D2E;
+    opacity: 0.3;
+    width: 90%;
+    max-width: 1100px;
+    margin: 60px auto 30px auto;
+  }
+  
