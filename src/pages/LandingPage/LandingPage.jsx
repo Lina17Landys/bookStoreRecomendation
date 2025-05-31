@@ -1,7 +1,7 @@
 import Landing from '../../components/Landing/Landing';
 import Barra from '../../components/barra/barra';
 import Features from '../../components/features/features';
-
+import BooksFamosos from '../../components/booksFamosos/booksfamosos';
 
 const LandingPage = () => {
   return (
@@ -9,7 +9,7 @@ const LandingPage = () => {
       <Barra />
       <Landing />
       <Features />
-
+      <BooksFamosos />
     </div>
   );
 };
