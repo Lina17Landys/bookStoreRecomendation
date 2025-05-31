@@ -21,4 +21,23 @@
     margin: 0; 
   }
   
+  .barra-buttons {
+    margin-left: auto;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .barra-button {
+    text-decoration: none;
+    background-color: #FF500D;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .barra-button:hover {
+    background-color: #d33b06;
+  }
   
