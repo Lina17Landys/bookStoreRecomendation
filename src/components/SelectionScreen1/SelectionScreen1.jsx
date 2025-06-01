@@ -3,18 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './SelectionScreen1.css';
 import logo from '../../assets/logo.svg';
 
-const librosIniciales = [
-  { titulo: "The Hobbit", autor: "J.R.R. Tolkien", imagen: "https://covers.openlibrary.org/b/id/6979861-M.jpg" },
-  { titulo: "1984", autor: "George Orwell", imagen: "https://covers.openlibrary.org/b/id/7222246-M.jpg" },
-  { titulo: "To Kill a Mockingbird", autor: "Harper Lee", imagen: "https://covers.openlibrary.org/b/id/8225260-M.jpg" },
-  { titulo: "Pride and Prejudice", autor: "Jane Austen", imagen: "https://covers.openlibrary.org/b/id/8081536-M.jpg" },
-  { titulo: "Harry Potter", autor: "J.K. Rowling", imagen: "https://covers.openlibrary.org/b/id/7984916-M.jpg" },
-  { titulo: "The Great Gatsby", autor: "F. Scott Fitzgerald", imagen: "https://covers.openlibrary.org/b/id/7222276-M.jpg" },
-  { titulo: "The Catcher in the Rye", autor: "J.D. Salinger", imagen: "https://covers.openlibrary.org/b/id/8231856-M.jpg" },
-  { titulo: "The Name of the Wind", autor: "Patrick Rothfuss", imagen: "https://covers.openlibrary.org/b/id/8370616-M.jpg" },
-  { titulo: "The Hunger Games", autor: "Suzanne Collins", imagen: "https://covers.openlibrary.org/b/id/7262161-M.jpg" },
-  { titulo: "Dracula", autor: "Bram Stoker", imagen: "https://covers.openlibrary.org/b/id/8235119-M.jpg" }
-];
 
 const SelectionScreen1 = () => {
   const navigate = useNavigate();
@@ -24,7 +12,16 @@ const SelectionScreen1 = () => {
 
   // Mostrar los libros iniciales por defecto al montar el componente
   useEffect(() => {
-    setResultados(librosIniciales);
+    const fetchIniciales = async () => {
+      try {
+        const res = await fetch("https://db17-34-19-56-103.ngrok-free.app/libros");
+        const data = await res.json();
+        setResultados(data.libros.slice(0, 10));
+      } catch (err) {
+        console.error("Error al cargar libros iniciales:", err);
+      }
+    };
+    fetchIniciales();
   }, []);
 
   useEffect(() => {
@@ -57,7 +54,6 @@ const SelectionScreen1 = () => {
     };
 
     fetchLibros();
-    // eslint-disable-next-line
   }, [busqueda]);
 
   const toggleSeleccion = (titulo) => {

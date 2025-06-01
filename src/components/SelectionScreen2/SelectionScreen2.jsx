@@ -49,12 +49,7 @@ const SelectionScreen2 = () => {
       <h2 className="selection-title">
         Selecciona 3 géneros literarios que más te gustan
       </h2>
-      <input
-        type="text"
-        placeholder="🔍 Buscar género"
-        className="buscador-libro"
-        disabled
-      />
+     
       <div className="libros-lista">
         <div className="libros-fila">
           {generosOpciones.slice(0, 5).map((genero, index) => (
