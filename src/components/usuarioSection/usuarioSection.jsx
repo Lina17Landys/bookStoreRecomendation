@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './PerfilSection.css';
 import perfilFoto from '../../assets/img/fotoPerfil.svg'; 
 
@@ -10,7 +11,7 @@ const PerfilUsuario = () => {
       <div className="perfil-info">
         <div className="perfil-top">
           <h2 className="username">paulisortize</h2>
-          <button className="editar-btn">Editar perfil</button>
+          <Link to="/editar-perfil" className="editar-btn">Editar perfil</Link>
         </div>
 
         <div className="estadisticas">

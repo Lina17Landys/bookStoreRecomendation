@@ -1,7 +1,7 @@
 .selection-header {
     width: 100%;
     display: flex;
-    justify-content: space-between; /* separa izquierda y derecha */
+    justify-content: space-between;
     align-items: center;
     height: 85px;
     padding: 10px 50px;
@@ -10,7 +10,6 @@
     box-sizing: border-box;
   }
   
-  /* Agrupa logo + nav */
   .left-section {
     display: flex;
     align-items: center;
@@ -24,7 +23,7 @@
   .selection-nav {
     display: flex;
     gap: 32px;
-    margin-left: 30px; /* separa el logo del nav */
+    margin-left: 30px; 
   }
   
   .selection-nav a {
