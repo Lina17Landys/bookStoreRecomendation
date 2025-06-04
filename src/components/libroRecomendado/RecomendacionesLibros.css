@@ -1,0 +1,61 @@
+.libros-recomendados-container {
+    margin-top: 40px;
+    max-width: 730px; 
+
+  }
+  
+  .libros-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    padding-top: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .libros-header h3 {
+    font-size: 20px;
+    color: #382110;
+    margin: 0;
+  }
+  
+  .ver-mas {
+    font-size: 14px;
+    color: #8C7E74;
+    text-decoration: none;
+    white-space: nowrap; /* evita salto de línea */
+  }
+  
+  .sin-recomendaciones {
+    color: #8C7E74;
+    font-size: 16px;
+    padding: 12px 0;
+  }
+  
+  .libros-grid {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  
+  .libro-item {
+    max-width: 160px;
+  }
+  
+  .libro-portada {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .libro-titulo {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #000;
+  }
+  
+  .libro-autor {
+    font-size: 13px;
+    color: #382110;
+  }
+  

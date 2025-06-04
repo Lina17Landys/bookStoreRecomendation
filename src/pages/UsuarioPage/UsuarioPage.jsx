@@ -1,5 +1,6 @@
 import Usuario from '../../components/Usuario/Usuario';
 import PerfilUsuario from '../../components/usuarioSection/usuarioSection';
+import RecomendacionesLibros from '../../components/libroRecomendado/RecomendacionesLibros';
 import "./userPage.css"
 
 const UsuarioPage = () => {
@@ -8,6 +9,7 @@ const UsuarioPage = () => {
       <Usuario />
 
       <PerfilUsuario />
+      <RecomendacionesLibros/>
     </div>
   );
 };
