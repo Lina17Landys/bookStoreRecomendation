@@ -1,0 +1,47 @@
+.selection-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* separa izquierda y derecha */
+    align-items: center;
+    height: 85px;
+    padding: 10px 50px;
+    background: #F3F1EB;
+    border: 0.5px solid rgba(78, 61, 46, 0.20);
+    box-sizing: border-box;
+  }
+  
+  /* Agrupa logo + nav */
+  .left-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .selection-logo {
+    height: 32px;
+    object-fit: contain;
+  }
+  
+  .selection-nav {
+    display: flex;
+    gap: 32px;
+    margin-left: 30px; /* separa el logo del nav */
+  }
+  
+  .selection-nav a {
+    text-decoration: none;
+    color: #382110;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  
+  .selection-nav a.activo {
+    font-weight: bold;
+  }
+  
+  .fotoPerfil {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
