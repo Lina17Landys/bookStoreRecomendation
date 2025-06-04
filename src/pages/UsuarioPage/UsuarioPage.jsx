@@ -1,16 +1,27 @@
 import Usuario from '../../components/Usuario/Usuario';
 import PerfilUsuario from '../../components/usuarioSection/usuarioSection';
 import RecomendacionesLibros from '../../components/libroRecomendado/RecomendacionesLibros';
-import "./userPage.css"
+import FooterPerfil from '../../components/footerPerfil/footerPerfil';
+import "./userPage.css";
 
 const UsuarioPage = () => {
   return (
-    <div>
+    <>
       <Usuario />
+      <div className="usuarioContainer">
+        <div className="leftSidebar">
+          <div style={{ flexGrow: 1 }}></div>
+          <FooterPerfil />
+        </div>
 
-      <PerfilUsuario />
-      <RecomendacionesLibros/>
-    </div>
+
+        <div className="containerUser">
+          <PerfilUsuario />
+          <RecomendacionesLibros />
+        </div>
+      </div>
+
+    </>
   );
 };
 
