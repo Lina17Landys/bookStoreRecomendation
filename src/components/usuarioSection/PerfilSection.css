@@ -1,0 +1,90 @@
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.perfil-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin: 40px 0;
+  }
+  
+  .perfil-foto {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .perfil-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .perfil-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .username {
+    font-size: 24px;
+    font-weight: bold;
+    color: #382110;
+    margin: 0;
+  }
+  
+  .editar-btn {
+    background-color: #4E3D2E;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none; 
+    transition: background-color 0.3s ease;
+  }
+  
+  .editar-btn:hover {
+    background-color: #6b5441; 
+  }
+
+  .estadisticas {
+    display: flex;
+    gap: 48px; 
+    margin: 16px 0;
+    font-size: 18px;
+  }
+  
+  .estadisticas p {
+    margin: 0;
+    color: #8C7E74; 
+    font-weight: 400;
+    font-size: 23px;
+  }
+  
+  .estadisticas p strong {
+    color: #382110; 
+    font-weight: 700;
+  }
+  
+  
+  .descripcion {
+    max-width: 500px;
+  }
+  
+  .nombre-real {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #4E3D2E;
+  }
+  
+  .bio {
+    margin: 0;
+    color: #4E3D2E;
+    line-height: 1.4;
+    font-weight: 200;
+  }
+  
