@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './SelectionScreen2.css';
-import logo from '../../assets/logo.svg';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./SelectionScreen2.css";
+import logo from "../../assets/logo.svg";
+import { getAuth } from "firebase/auth";
+import { saveUserPreferences } from "../../utils/firebaseHelpers";
 
 const generosOpciones = [
   "Fantasía",
@@ -13,7 +15,7 @@ const generosOpciones = [
   "Aventura",
   "Biografía",
   "Drama",
-  "Clásicos"
+  "Clásicos",
 ];
 
 const SelectionScreen2 = () => {
@@ -28,9 +30,13 @@ const SelectionScreen2 = () => {
     }
   };
 
-  const handleContinuar = () => {
+  const handleContinuar = async () => {
     if (seleccionados.length === 3) {
-      navigate('/selection3');
+      const user = getAuth().currentUser;
+      if (user) {
+        await saveUserPreferences(user.uid, { favoriteGenres: seleccionados });
+      }
+      navigate("/selection3");
     }
   };
 
@@ -42,7 +48,9 @@ const SelectionScreen2 = () => {
           <a href="/">Inicio</a>
           <a href="/mis-libros">Mis libros</a>
           <a href="/grupos">Grupos</a>
-          <a href="/recomendacion" className="activo">Recomendación</a>
+          <a href="/recomendacion" className="activo">
+            Recomendación
+          </a>
         </nav>
       </header>
 
@@ -60,7 +68,9 @@ const SelectionScreen2 = () => {
           {generosOpciones.slice(0, 5).map((genero, index) => (
             <div
               key={index}
-              className={`libro-tarjeta ${seleccionados.includes(genero) ? 'seleccionado' : ''}`}
+              className={`libro-tarjeta ${
+                seleccionados.includes(genero) ? "seleccionado" : ""
+              }`}
               onClick={() => toggleSeleccion(genero)}
             >
               <div className="genero-imagen">{genero}</div>
@@ -71,7 +81,9 @@ const SelectionScreen2 = () => {
           {generosOpciones.slice(5, 10).map((genero, index) => (
             <div
               key={index + 5}
-              className={`libro-tarjeta ${seleccionados.includes(genero) ? 'seleccionado' : ''}`}
+              className={`libro-tarjeta ${
+                seleccionados.includes(genero) ? "seleccionado" : ""
+              }`}
               onClick={() => toggleSeleccion(genero)}
             >
               <div className="genero-imagen">{genero}</div>
@@ -81,7 +93,12 @@ const SelectionScreen2 = () => {
       </div>
 
       <div className="botones-navegacion">
-        <button className="boton-anterior" onClick={() => window.location.href = '/selection1'}>Anterior</button>
+        <button
+          className="boton-anterior"
+          onClick={() => (window.location.href = "/selection1")}
+        >
+          Anterior
+        </button>
         <button
           className="boton-siguiente"
           onClick={handleContinuar}

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { saveUserPreferences } from '../../utils/firebaseHelpers';
 import './SelectionScreen3.css';
 import logo from '../../assets/logo.svg';
 
@@ -24,6 +27,9 @@ const SelectionScreen3 = () => {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState(autoresBase.slice(0, 10));
   const [seleccionados, setSeleccionados] = useState([]);
+  const navigate = useNavigate();
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   useEffect(() => {
     if (busqueda.trim() === '') {
@@ -44,10 +50,20 @@ const SelectionScreen3 = () => {
     }
   };
 
-  const handleFinalizar = () => {
+  const handleFinalizar = async () => {
     if (seleccionados.length === 3) {
-      console.log('Autores favoritos:', seleccionados);
-      // window.location.href = '/recomendador';
+      if (!user) {
+        alert("Debes iniciar sesión para continuar.");
+        return;
+      }
+
+      try {
+        await saveUserPreferences(user.uid, { favoriteAuthors: seleccionados });
+        navigate('/reader-level');
+      } catch (error) {
+        console.error("Error al guardar autores:", error);
+        alert("Hubo un problema al guardar tu selección.");
+      }
     }
   };
 
@@ -97,7 +113,9 @@ const SelectionScreen3 = () => {
       </div>
 
       <div className="botones-navegacion3">
-        <button className="boton-anterior3" onClick={() => window.location.href = '/selection2'}>Anterior</button>
+        <button className="boton-anterior3" onClick={() => navigate('/selection2')}>
+          Anterior
+        </button>
         <button
           className="boton-siguiente3"
           onClick={handleFinalizar}

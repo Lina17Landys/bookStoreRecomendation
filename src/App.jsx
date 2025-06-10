@@ -11,6 +11,8 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import LibrosPage from './pages/LibrosPage/LibrosPage';
 import UsuarioPage from './pages/UsuarioPage/UsuarioPage';
 import EditarPerfilPage from './pages/EditarPerfilPage/EditarPerfilPage';
+import ReaderLevelPage from './pages/ReaderLevelPage/ReaderLevelPage';
+import RecommendationPage from './pages/RecommendationPage/RecommendationPage';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/libros" element={<LibrosPage />} />
         <Route path="/usuario" element={<UsuarioPage />} />
         <Route path="/editar-perfil" element={<EditarPerfilPage />} />
+        <Route path="/reader-level" element={<ReaderLevelPage />} />
+        <Route path="/recomendacion" element={<RecommendationPage />} />
       </Routes>
     </div>
   );
