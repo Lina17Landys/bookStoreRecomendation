@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
-// Páginas
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import SelectionPage1 from './pages/SelectionPage1/SelectionPage1';
@@ -17,8 +16,8 @@ function App() {
   return (
     <div id="app-wrapper">
       <Routes>
-        <Route path="/landing" element={<LandingPage />} />
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/selection1" element={<SelectionPage1 />} />
         <Route path="/selection2" element={<SelectionPage2 />} />

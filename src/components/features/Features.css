@@ -1,0 +1,50 @@
+.features-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.feature-card {
+  background-color: #f7f4ef;
+  border-radius: 16px;
+  width: 340px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.feature-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.feature-content {
+  background-color: #f3eddf;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.feature-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4a3b2c;
+  margin-bottom: 10px;
+}
+
+.feature-content p {
+  font-size: 15px;
+  color: #5f5342;
+  line-height: 1.4;
+  margin: 0; 
+}

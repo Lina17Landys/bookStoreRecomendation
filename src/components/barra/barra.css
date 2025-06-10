@@ -1,0 +1,43 @@
+#barra-container {
+    width: 100%;
+    height: 70px;
+    background-color: #f7f4ef;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    border-bottom: 2px solid #e7e1d8;
+    position: fixed;   
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+  }
+  
+  #barra-container img {
+    height: 38px;
+    width: auto;
+    margin: 0; 
+  }
+  
+  .barra-buttons {
+    margin-left: auto;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .barra-button {
+    text-decoration: none;
+    background-color: #FF500D;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .barra-button:hover {
+    background-color: #d33b06;
+  }
+  
