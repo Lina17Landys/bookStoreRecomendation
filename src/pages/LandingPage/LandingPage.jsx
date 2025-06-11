@@ -16,8 +16,8 @@ const LandingPage = () => {
 
 
       <div className='section-landing'>
-        <hr class="divider" />
-        <p class="quote-final">
+        <hr className="divider" />
+        <p className="quote-final">
           <strong>No más libros que abandonas en la página 10. </strong>
           Entra, responde y recibe tu siguiente lectura.
         </p>
