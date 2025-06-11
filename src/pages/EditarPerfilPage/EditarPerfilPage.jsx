@@ -1,11 +1,16 @@
 import EditarPerfil from '../../components/EditarPerfil/EditarPerfil';
+import Usuario from '../../components/Usuario/Usuario';
+import "./editPerfil.css"
 
 const EditarPerfilPage = () => {
   return (
     <div>
-      <EditarPerfil />
+      <Usuario/>
+      <div className='contenedorEditar'>
+        <EditarPerfil />
+      </div>
     </div>
   );
 };
 
-export default EditarPerfilPage; // 👈 Este export es obligatorio
+export default EditarPerfilPage; 

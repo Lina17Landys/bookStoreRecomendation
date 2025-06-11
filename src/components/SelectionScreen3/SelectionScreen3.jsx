@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { saveUserPreferences } from '../../utils/firebaseHelpers';
 import './SelectionScreen3.css';
-import logo from '../../assets/logo.svg';
+import NavBar from '../NavBar/NavBar';
 
 const autoresBase = [
   "Gabriel García Márquez",
@@ -69,16 +69,7 @@ const SelectionScreen3 = () => {
 
   return (
     <div className="selection-screen3">
-      <header className="selection-header3">
-        <img src={logo} alt="Logo" className="selection-logo3" />
-        <nav className="selection-nav3">
-          <a href="/">Inicio</a>
-          <a href="/mis-libros">Mis libros</a>
-          <a href="/grupos">Grupos</a>
-          <a href="/recomendacion" className="activo">Recomendación</a>
-        </nav>
-      </header>
-
+      <NavBar activePage="recomendacion" />
       <h2 className="selection-title3">Selecciona 3 autores favoritos</h2>
       <input
         type="text"

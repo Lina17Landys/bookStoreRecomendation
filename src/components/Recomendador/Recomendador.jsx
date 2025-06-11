@@ -9,7 +9,7 @@ const Recomendador = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = 'https://ab23-35-239-93-209.ngrok-free.app/recomendar'; // Reemplaza por tu URL real
+    const endpoint = 'https://db17-34-19-56-103.ngrok-free.app'; // Reemplaza por tu URL real
     try {
       const res = await fetch(endpoint, {
         method: 'POST',

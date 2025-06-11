@@ -1,0 +1,52 @@
+#footerUser {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 40px;
+    background-color: #f8f5ef;
+    color: #382110;
+    font-family: inherit;
+    font-size: 16px;
+    gap: 32px;
+    width: fit-content;
+    min-width: 220px;
+  }
+  
+  .enlacesCom h1,
+  .redesSociales h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: bold;
+  }
+  
+  .enlacesCom p {
+    margin: 4px 0;
+    color: #382110;
+    font-size: 15px;
+  }
+  
+  .iconosRedes {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .iconosRedes img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  img {
+    margin-left: 5px;
+  }
+  .iconosRedes img:hover {
+    opacity: 0.7;
+  }
+  
+  #footerUser > p {
+    font-size: 14px;
+    color: #8c7e74;
+    margin-top: 16px;
+  }
+  
