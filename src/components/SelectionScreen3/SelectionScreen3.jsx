@@ -27,6 +27,8 @@ const SelectionScreen3 = () => {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState(autoresBase.slice(0, 10));
   const [seleccionados, setSeleccionados] = useState([]);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
@@ -51,19 +53,21 @@ const SelectionScreen3 = () => {
   };
 
   const handleFinalizar = async () => {
-    if (seleccionados.length === 3) {
-      if (!user) {
-        alert("Debes iniciar sesión para continuar.");
-        return;
-      }
-
-      try {
-        await saveUserPreferences(user.uid, { favoriteAuthors: seleccionados });
-        navigate('/reader-level');
-      } catch (error) {
-        console.error("Error al guardar autores:", error);
-        alert("Hubo un problema al guardar tu selección.");
-      }
+    if (seleccionados.length !== 3) return;
+    if (!user) {
+      setError("Debes iniciar sesión para continuar.");
+      return;
+    }
+    setSaving(true);
+    setError('');
+    try {
+      await saveUserPreferences(user.uid, { favoriteAuthors: seleccionados });
+      navigate('/reader-level');
+    } catch (err) {
+      console.error("Error al guardar autores:", err);
+      setError("Hubo un problema al guardar tu selección.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -80,9 +84,9 @@ const SelectionScreen3 = () => {
       />
       <div className="libros-lista3">
         <div className="libros-fila">
-          {resultados.slice(0, 5).map((autor, index) => (
+          {resultados.slice(0, 5).map((autor) => (
             <div
-              key={index}
+              key={autor}
               className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
               onClick={() => toggleSeleccion(autor)}
             >
@@ -91,9 +95,9 @@ const SelectionScreen3 = () => {
           ))}
         </div>
         <div className="libros-fila">
-          {resultados.slice(5, 10).map((autor, index) => (
+          {resultados.slice(5, 10).map((autor) => (
             <div
-              key={index + 5}
+              key={autor}
               className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
               onClick={() => toggleSeleccion(autor)}
             >
@@ -104,17 +108,22 @@ const SelectionScreen3 = () => {
       </div>
 
       <div className="botones-navegacion3">
-        <button className="boton-anterior3" onClick={() => navigate('/selection2')}>
+        <button className="boton-anterior3" onClick={() => navigate(-1)}>
           Anterior
         </button>
         <button
           className="boton-siguiente3"
           onClick={handleFinalizar}
-          disabled={seleccionados.length !== 3}
+          disabled={seleccionados.length !== 3 || saving}
         >
-          Finalizar
+          {saving ? 'Guardando...' : 'Finalizar'}
         </button>
       </div>
+      {error && (
+        <div className="ss3-error" style={{ color: 'red', marginTop: '8px' }}>
+          {error}
+        </div>
+      )}
     </div>
   );
 };
