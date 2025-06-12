@@ -5,7 +5,7 @@ const Features = () => {
   return (
     <div className="features-container">
       <div className="feature-card">
-        <img src="./src/assets/img/persona.svg" alt="Recomendación personal" />
+        <img src="./assets/img/persona.svg" alt="Recomendación personal" />
         <div className="feature-content">
           <h3>Recomendación personal</h3>
           <p>
@@ -15,7 +15,7 @@ const Features = () => {
       </div>
 
       <div className="feature-card">
-        <img src="./src/assets/img/grupo.svg" alt="Lectura en grupo" />
+        <img src="./assets/img/grupo.svg" alt="Lectura en grupo" />
         <div className="feature-content">
           <h3>Lectura en grupo</h3>
           <p>
