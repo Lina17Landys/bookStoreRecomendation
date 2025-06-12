@@ -4,7 +4,7 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../services/firebaseConfig";
 import NavBar from "../NavBar/NavBar";
-import BookLoader from "../BookLoader/BookLoader";
+import BookLoader from "../BookLoader/BookLoader"
 import "./MisGrupos.css";
 
 const MisGrupos = () => {

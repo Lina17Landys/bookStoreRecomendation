@@ -14,10 +14,10 @@ const FooterPerfil = () => {
 
 <div className="redesSociales">
     <h1>Conéctate</h1>
-    <img src="./src/assets/img/red1.svg"></img>
-    <img src="./src/assets/img/red2.svg"></img>
-    <img src="./src/assets/img/red3.svg"></img>
-    <img src="./src/assets/img/red4.svg"></img>
+    <img src="./assets/img/red1.svg"></img>
+    <img src="./assets/img/red2.svg"></img>
+    <img src="./assets/img/red3.svg"></img>
+    <img src="./assets/img/red4.svg"></img>
 </div>
 
 <p>© 2025 Goodrecoms, Inc.</p>

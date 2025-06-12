@@ -14,7 +14,7 @@ const Landing = () => {
       <button>Descubre tu próximo libro</button>
 
       <div className="books-banner">
-        <img src="./src/assets/img/librosBanner.png" alt="Libros decorativos" />
+        <img src="./assets/img/librosBanner.png" alt="Libros decorativos" />
       </div>
     </div>
   );
