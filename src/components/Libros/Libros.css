@@ -1,0 +1,257 @@
+/* src/components/Libros/Libros.css */
+
+.libros-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Archivo', sans-serif;
+  color: #382110;
+  padding-top: 60px;
+}
+
+.titulo-principal {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #8f3011;
+}
+
+.seccion-libros {
+  margin-bottom: 2rem;
+}
+
+.titulo-seccion {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #8f3011;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
+}
+
+.libros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.libro-card {
+  background-color: #fffdfb;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 3px 8px rgba(56, 33, 16, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.libro-card:hover,
+.libro-card:focus-within {
+  box-shadow: 0 6px 15px rgba(56, 33, 16, 0.3);
+}
+
+.ranking-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #ff6b35;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  user-select: none;
+}
+
+.libro-info {
+  margin-bottom: 1rem;
+}
+
+.libro-titulo {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+  color: #8f3011;
+}
+
+.libro-autor {
+  font-size: 1rem;
+  font-style: italic;
+  color: #382110;
+  margin-bottom: 0.8rem;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.rating-label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+  color: #8f3011;
+}
+
+.estrellas {
+  display: flex;
+  gap: 0.15rem;
+}
+
+.estrella-activa,
+.estrella-inactiva {
+  font-size: 1.3rem;
+  user-select: none;
+  transition: color 0.25s ease;
+}
+
+.estrella-activa {
+  color: #f8b12d;
+}
+
+.estrella-inactiva {
+  color: #bbb;
+}
+
+.estrella-activa:hover,
+.estrella-inactiva:hover {
+  color: #ff6b35;
+  cursor: pointer;
+}
+
+.libro-acciones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Botón base */
+button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+button:focus-visible {
+  outline: 2px solid #ff6b35;
+  outline-offset: 2px;
+}
+
+/* Botones de acción con mismo ancho */
+.btn-leido-toggle,
+.btn-recomendado-toggle {
+  background-color: #ff6b35;
+  color: white;
+  min-width: 180px;
+  text-align: left;
+}
+
+.btn-leido-toggle:hover,
+.btn-leido-toggle:focus,
+.btn-recomendado-toggle:hover,
+.btn-recomendado-toggle:focus {
+  background-color: #6a220c;
+  transform: translateY(-1px);
+}
+
+/* Estado activo para recomendado */
+.btn-recomendado-toggle.activo {
+  background-color: #ff6b35;
+}
+
+.btn-recomendado-toggle.activo:hover,
+.btn-recomendado-toggle.activo:focus {
+  background-color: #6a220c;
+}
+
+.btn-leido-toggle.activo {
+  background-color: #6a220c;
+}
+
+.btn-leido-toggle.activo:hover,
+.btn-leido-toggle.activo:focus {
+  background-color: #ff6b35;
+  transform: translateY(-1px);
+}
+
+
+/* Botón eliminar */
+.btn-eliminar {
+  background-color: #6a220c;
+  color: white;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+}
+
+.btn-eliminar:hover,
+.btn-eliminar:focus {
+  background-color: #6a220c;
+  transform: translateY(-1px);
+}
+
+/* Spinner de carga */
+.cargando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 3rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ff6b35;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mensaje-vacio {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #8f3011;
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .libros-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .libro-acciones {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .btn-leido-toggle,
+  .btn-recomendado-toggle {
+    width: 100%;
+  }
+  
+  .btn-eliminar {
+    align-self: center;
+  }
+}

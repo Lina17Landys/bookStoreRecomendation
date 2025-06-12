@@ -1,17 +1,39 @@
 .selection-header {
-  position: fixed; /* o sticky */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
   height: 85px;
   padding: 10px 50px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
   background: #F3F1EB;
   border: 0.5px solid rgba(78, 61, 46, 0.20);
   box-sizing: border-box;
+  z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.nav-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-right {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 32px;
 }
 
 .selection-logo {
@@ -22,7 +44,6 @@
 .selection-nav {
   display: flex;
   gap: 32px;
-  margin-left: 30px;
 }
 
 .selection-nav a {
@@ -30,8 +51,77 @@
   color: #382110;
   font-size: 16px;
   font-weight: normal;
+  white-space: nowrap;
 }
 
 .selection-nav a.activo {
   font-weight: bold;
 }
+
+.perfil-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.fotoPerfil {
+  width: 100%;
+  height: 100%;
+  object-position: center;
+}
+
+.perfil-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #8f3011; /* o el color que quieras */
+  background-color: transparent; /* o un gris claro */
+  cursor: pointer;
+}
+
+.perfil-loader {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ddd;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.nav-search-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.nav-search-input:focus {
+  outline: none;
+  border-color: #382110;
+  box-shadow: 0 0 5px rgba(41, 24, 1, 0.5);
+}
+
+.avatar-inicial {
+  width: 100%;
+  height: 100%;
+  background-color: #382110; /* Puedes cambiarlo a otro de tu paleta */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-family: 'Archivo', sans-serif;
+}
+

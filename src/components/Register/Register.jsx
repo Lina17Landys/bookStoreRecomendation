@@ -1,34 +1,74 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../services/firebaseConfig';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth, db } from '../../services/firebaseConfig';
 import logo from '../../assets/logo.svg';
+import { collection, query, where, getDocs, doc, setDoc } from 'firebase/firestore';
+import BookLoader from '../../components/BookLoader/BookLoader';
 
 const Register = () => {
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert('Las contraseñas no coinciden');
       return;
     }
+
+    setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      // Verifica si el username ya existe
+      const usersRef = collection(db, 'users');
+      const q = query(usersRef, where('username', '==', username));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        alert('Ese nombre de usuario ya está en uso');
+        setLoading(false);
+        return;
+      }
+
+      // Crea el usuario
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await updateProfile(user, { displayName: name });
+
+      await setDoc(doc(db, 'users', user.uid), {
+        name,
+        username,
+        email,
+        photoURL: '',
+        descripcion: '',
+        books: [],
+        groups: [],
+        friends: []
+      });
+
       alert('Cuenta creada con éxito');
       navigate('/selection1');
     } catch (error) {
+      console.error('Registration error:', error);
       alert('Error al registrar: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="register">
+      {loading && <BookLoader />}
+
       <header className="register-header">
         <img src={logo} alt="Logo" className="register-logo" />
       </header>
@@ -47,6 +87,19 @@ const Register = () => {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="username" className="input-label">Nombre de usuario</label>
+            <input
+              type="text"
+              id="username"
+              className="input-field"
+              placeholder="Ej. paulisortize"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -89,15 +142,15 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" className="register-button" >Crear cuenta</button>
+          <button type="submit" className="register-button">Crear cuenta</button>
         </form>
 
         <p className="register-terms">
-          By creating an account, you agree to the Goodreads <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+          Al crear una cuenta aceptas los <a href="#">Términos de servicio</a> y la <a href="#">Política de privacidad</a> de Goodrecoms.
         </p>
 
         <p className="register-login-link">
-          Already have an account? <a href="/">Ingresa</a>
+          ¿Ya tienes una cuenta? <a href="/login">Ingresa</a>
         </p>
       </div>
     </div>

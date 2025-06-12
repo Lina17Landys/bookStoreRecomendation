@@ -6,7 +6,9 @@ const FooterPerfil = () => {
  
  <div className="enlacesCom">
 <h1>Compañia</h1>
-<p>Telegram</p>
+<p style={{ cursor: 'pointer', color: '#382110' }} onClick={() => window.open('https://t.me/Imula_bot', '_blank')}>
+  Telegram
+</p>
 <p>Contacto</p>
 </div>
 

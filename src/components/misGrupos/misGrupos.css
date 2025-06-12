@@ -1,0 +1,121 @@
+/* src/components/Grupos/MisGrupos.css */
+
+.grupos-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Archivo', sans-serif;
+  color: #382110;
+  padding-top: 60px;
+}
+
+.titulo-principal {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #8f3011;
+}
+
+.grupos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.grupo-card {
+  background-color: #fffdfb;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 3px 8px rgba(56, 33, 16, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.grupo-card:hover {
+  box-shadow: 0 6px 15px rgba(56, 33, 16, 0.3);
+}
+
+.grupo-avatar {
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #ff5a1f;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grupo-info {
+  color: #382110;
+}
+
+.grupo-nombre {
+  font-size: 1.2rem;
+  color: #8f3011;
+  margin-bottom: 0.3rem;
+}
+
+.grupo-descripcion {
+  font-size: 0.95rem;
+}
+
+.grupo-botones {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+/* Botón "Ver chat" */
+.btn-chat {
+  background-color: #ff5a1f; /* naranja vibrante */
+  color: white;
+  border: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.btn-chat:hover:not(:disabled),
+.btn-chat:focus-visible:not(:disabled) {
+  background-color: #e65100;
+}
+
+/* Botón "Salir" */
+.btn-salir {
+  background-color: #8f3011;
+  color: #ffd4bc;
+  border: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-salir:hover,
+.btn-salir:focus-visible {
+  background-color: #6a220c;
+}
+
+
+.mensaje-vacio {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #8f3011;
+  margin-top: 2rem;
+}

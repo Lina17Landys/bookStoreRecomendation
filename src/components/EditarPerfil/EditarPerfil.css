@@ -103,3 +103,26 @@
     background-color: #e64600;
   }
   
+.info-profile h3 {
+  margin-bottom: 0.3rem; /* menos espacio abajo */
+}
+
+.info-profile p {
+  margin-top: 0;  /* eliminar espacio arriba */
+  margin-bottom: 1rem; /* menos espacio abajo */
+}
+
+.eliminar-foto {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  color: #8f3011;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.eliminar-foto:hover {
+  color: #c73a1b;
+}
+

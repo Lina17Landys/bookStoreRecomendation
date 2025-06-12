@@ -13,6 +13,8 @@ import UsuarioPage from './pages/UsuarioPage/UsuarioPage';
 import EditarPerfilPage from './pages/EditarPerfilPage/EditarPerfilPage';
 import ReaderLevelPage from './pages/ReaderLevelPage/ReaderLevelPage';
 import RecommendationPage from './pages/RecommendationPage/RecommendationPage';
+import GruposPage from './pages/GruposPage/GruposPage';
+import Buscar from './components/Buscar/Buscar';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/editar-perfil" element={<EditarPerfilPage />} />
         <Route path="/reader-level" element={<ReaderLevelPage />} />
         <Route path="/recomendacion" element={<RecommendationPage />} />
+        <Route path="/grupos" element={<GruposPage />} />
+        <Route path="/buscar" element={<Buscar />} />
       </Routes>
     </div>
   );

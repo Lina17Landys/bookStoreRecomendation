@@ -1,0 +1,532 @@
+/* src/components/Buscar/Buscar.css - Estilos específicos para la página de búsqueda */
+
+.buscar-container {
+  /* Colores tema naranja/café específicos para búsqueda */
+  --buscar-primary-orange: #e67e22;
+  --buscar-secondary-orange: #f39c12;
+  --buscar-dark-brown: #8b4513;
+  --buscar-light-brown: #d2691e;
+  --buscar-cream: #fdf2e9;
+  --buscar-warm-white: #faf7f2;
+  --buscar-text-dark: #5d4037;
+  --buscar-text-medium: #8d6e63;
+  --buscar-text-light: #a1887f;
+  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: calc(100vh - 80px);
+  font-family: 'Archivo', sans-serif;
+}
+
+.buscar-container h1 {
+  color: var(--buscar-dark-brown);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(139, 69, 19, 0.1);
+}
+
+/* Loading específico para búsqueda general */
+.buscar-container .cargando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 12px;
+  margin: 40px 0;
+}
+
+.buscar-container .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--buscar-cream);
+  border-top: 2px solid var(--buscar-primary-orange);
+  border-radius: 50%;
+  animation: buscar-spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes buscar-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.buscar-container .cargando p {
+  color: var(--buscar-text-medium);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Secciones de resultados de búsqueda */
+.buscar-container .seccion-resultados {
+  margin-bottom: 40px;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.08);
+  border: 1px solid rgba(230, 126, 34, 0.1);
+}
+
+.buscar-container .seccion-resultados h2 {
+  color: var(--buscar-dark-brown);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+/* Grids específicos para resultados de búsqueda */
+.buscar-container .libros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.buscar-container .usuarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.buscar-container .grupos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Cards de libros simplificadas para búsqueda */
+.buscar-container .libro-card {
+  background: var(--buscar-warm-white);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(139, 69, 19, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  text-align: center;
+}
+
+.buscar-container .libro-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(230, 126, 34, 0.2);
+  border-color: var(--buscar-secondary-orange);
+}
+
+.buscar-container .libro-cover {
+  width: 120px;
+  height: 150px;
+  margin: 0 auto 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--buscar-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(139, 69, 19, 0.15);
+}
+
+.buscar-container .libro-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.buscar-container .cover-placeholder {
+  font-size: 3rem;
+  color: var(--buscar-light-brown);
+}
+
+.buscar-container .libro-info {
+  text-align: center;
+}
+
+.buscar-container .libro-titulo {
+  color: var(--buscar-dark-brown);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.buscar-container .libro-autor {
+  color: var(--buscar-text-medium);
+  margin: 0 0 16px 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.buscar-container .libro-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.buscar-container .add-book-btn {
+  background: var(--buscar-primary-orange);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.buscar-container .add-book-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.3);
+}
+
+.buscar-container .add-book-btn:hover {
+  background: var(--buscar-secondary-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+}
+
+.buscar-container .add-book-btn:disabled {
+  background: var(--buscar-text-light);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Cards de usuarios para búsqueda */
+.buscar-container .usuario-card {
+  background: var(--buscar-warm-white);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(139, 69, 19, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.buscar-container .usuario-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(230, 126, 34, 0.15);
+  border-color: var(--buscar-primary-orange);
+}
+
+.buscar-container .usuario-avatar {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--buscar-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--buscar-secondary-orange);
+}
+
+.buscar-container .usuario-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.buscar-container .avatar-inicial {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--buscar-primary-orange);
+  background: var(--buscar-cream);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buscar-container .usuario-info {
+  flex: 1;
+}
+
+.buscar-container .usuario-info h4 {
+  margin: 0 0 4px 0;
+  color: var(--buscar-dark-brown);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.buscar-container .username {
+  color: var(--buscar-primary-orange);
+  margin: 0 0 4px 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.buscar-container .email {
+  color: var(--buscar-text-medium);
+  margin: 0 0 6px 0;
+  font-size: 0.9rem;
+}
+
+.buscar-container .libros-count {
+  color: var(--buscar-light-brown);
+  font-weight: 500;
+  font-size: 0.85rem;
+  background: var(--buscar-cream);
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.btn-agregar-libro {
+  background-color: #d2691e;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-agregar-libro:hover {
+  background-color: #b45717;
+}
+
+.buscar-container .usuario-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.buscar-container .follow-btn {
+  background: var(--buscar-primary-orange);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buscar-container .follow-btn:hover {
+  background: var(--buscar-secondary-orange);
+  transform: translateY(-1px);
+}
+
+.buscar-container .follow-btn.following {
+  background: var(--buscar-light-brown);
+}
+
+.btn-agregar-amigo{
+  background-color: #d2691e;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+/* Cards de grupos para búsqueda */
+.buscar-container .grupo-card {
+  background: var(--buscar-warm-white);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(139, 69, 19, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  display: flex;
+  gap: 16px;
+}
+
+.buscar-container .grupo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(230, 126, 34, 0.15);
+  border-color: var(--buscar-secondary-orange);
+}
+
+.buscar-container .grupo-icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--buscar-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 2px solid var(--buscar-light-brown);
+}
+
+.buscar-container .grupo-info h4 {
+  margin: 0 0 8px 0;
+  color: var(--buscar-dark-brown);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.buscar-container .descripcion {
+  color: var(--buscar-text-dark);
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.buscar-container .grupo-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.buscar-container .categoria {
+  color: var(--buscar-light-brown);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.buscar-container .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.buscar-container .tag {
+  background: var(--buscar-primary-orange);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Sin resultados específico para búsqueda */
+.buscar-container .sin-resultados {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--buscar-text-medium);
+  background: var(--buscar-cream);
+  border-radius: 16px;
+  margin: 40px 0;
+}
+
+.buscar-container .sin-resultados-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.6;
+  color: var(--buscar-light-brown);
+}
+
+.buscar-container .sin-resultados h3 {
+  color: var(--buscar-dark-brown);
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.buscar-container .sin-resultados p {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  color: var(--buscar-text-medium);
+}
+
+.buscar-container .sugerencias {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+  border: 1px solid rgba(230, 126, 34, 0.2);
+}
+
+.buscar-container .sugerencias h4 {
+  color: var(--buscar-dark-brown);
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.buscar-container .sugerencias ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.buscar-container .sugerencias li {
+  margin-bottom: 8px;
+  color: var(--buscar-text-dark);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.buscar-container .sugerencias li::marker {
+  color: var(--buscar-primary-orange);
+}
+
+/* Responsive específico para búsqueda */
+@media (max-width: 768px) {
+  .buscar-container {
+    padding: 15px;
+  }
+  
+  .buscar-container h1 {
+    font-size: 1.5rem;
+  }
+  
+  .buscar-container .libros-grid,
+  .buscar-container .usuarios-grid,
+  .buscar-container .grupos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .buscar-container .seccion-resultados {
+    padding: 16px;
+  }
+  
+  .buscar-container .libro-card,
+  .buscar-container .usuario-card,
+  .buscar-container .grupo-card {
+    padding: 16px;
+  }
+  
+  .buscar-container .libro-cover {
+    width: 100px;
+    height: 125px;
+  }
+  
+  .buscar-container .usuario-avatar {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buscar-container .usuario-card,
+  .buscar-container .grupo-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .buscar-container .usuario-avatar,
+  .buscar-container .grupo-icon {
+    align-self: center;
+  }
+  
+  .buscar-container .tags {
+    justify-content: center;
+  }
+  
+  .buscar-container .sugerencias {
+    padding: 16px;
+  }
+}

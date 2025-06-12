@@ -4,6 +4,7 @@ import "./ReaderLevel.css";
 import logo from "../../assets/logo.svg";
 import { getAuth } from "firebase/auth";
 import { saveUserPreferences } from "../../utils/firebaseHelpers";
+import NavBar from "../NavBar/NavBar";
 
 const ReaderLevelScreen = () => {
   const [selectedLevel, setSelectedLevel] = useState("");
@@ -33,17 +34,7 @@ const ReaderLevelScreen = () => {
 
   return (
     <div className="reader-level-container">
-      <header className="selection-header">
-        <img src={logo} alt="Logo" className="selection-logo" />
-        <nav className="selection-nav">
-          <a href="/">Inicio</a>
-          <a href="/mis-libros">Mis libros</a>
-          <a href="/grupos">Grupos</a>
-          <a href="/recomendacion" className="activo">
-            Recomendación
-          </a>
-        </nav>
-      </header>
+      <NavBar activePage="recomendacion" />
 
       <h2 className="reader-title">¿Cuál es tu nivel de lector actual?</h2>
 

@@ -1,61 +1,146 @@
 .libros-recomendados-container {
-    margin-top: -50px;
-    max-width: 730px; 
+  max-width: 730px;
+  margin-top: -50; /* Antes decía -50px */
+  padding-top: 0;
+}
 
-  }
-  
-  .libros-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #ccc;
-    padding-top: 24px;
-    margin-bottom: 16px;
-  }
-  
-  .libros-header h3 {
-    font-size: 20px;
-    color: #382110;
-    margin: 0;
-  }
-  
-  .ver-mas {
-    font-size: 14px;
-    color: #8C7E74;
-    text-decoration: none;
-    white-space: nowrap; /* evita salto de línea */
-  }
-  
-  .sin-recomendaciones {
-    color: #8C7E74;
-    font-size: 16px;
-    padding: 12px 0;
-  }
-  
-  .libros-grid {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-  
-  .libro-item {
-    max-width: 160px;
-  }
-  
-  .libro-portada {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  .libro-titulo {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #000;
-  }
-  
-  .libro-autor {
-    font-size: 13px;
-    color: #382110;
-  }
-  
+.libros-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  margin-bottom: 5px;
+}
+
+.libros-header h3 {
+  font-size: 20px;
+  color: #382110;
+  margin: 0;
+}
+
+.ver-mas {
+  font-size: 14px;
+  color: #ff5a1f;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.3s;
+  margin-right: 20px;
+}
+
+.ver-mas:hover {
+  color: #382110;
+}
+
+.sin-recomendaciones {
+  color: #8C7E74;
+  font-size: 16px;
+  padding: 12px 0;
+}
+
+.libros-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 10px 16px 8px 16px;
+  margin-left: 20px;
+}
+
+
+.libro-item:hover {
+  transform: translateY(-4px);
+}
+
+.libro-item {
+  flex: 0 0 160px;
+  background-color: #f8f5ef;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(56, 33, 16, 0.1);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px; /* espacio compacto entre todos los elementos */
+}
+
+.libro-item img {
+  width: 140px;   /* tamaño fijo ancho */
+  height: 200px;  /* tamaño fijo alto */
+  object-fit: cover;  /* recorta la imagen para que no se distorsione */
+  border-radius: 8px;
+}
+
+
+.libro-titulo {
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+  margin: 4px 0 0 0; /* más cerca de la portada */
+  white-space: nowrap;        /* evita salto de línea */
+  overflow: hidden;           /* oculta el texto que se sale */
+  text-overflow: ellipsis;    /* agrega puntos suspensivos al final */
+  max-width: 140px;           /* para que coincida con la imagen */
+}
+
+
+.libro-autor {
+  font-size: 13px;
+  color: #382110;
+  margin: 2px 0 6px 0; /* menos espacio entre título y botones */
+}
+
+.botones-libro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.botones-libro button {
+  font-size: 12px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #ff5a1f; /* <-- este valor pisa los estilos personalizados */
+  color: white;
+  transition: background-color 0.3s;
+  min-width: 140px;
+  white-space: nowrap;
+}
+
+
+.botones-libro button:hover {
+  background-color: #8f3011;
+}
+
+.btn-eliminar {
+  background-color: #ccc;
+  color: #382110;
+}
+
+.btn-eliminar:hover {
+  background-color: #b3a89d;
+}
+
+.btn-leido {
+  background-color: #8f3011 !important; /* verde más oscuro */
+  color: white !important;
+}
+
+.btn-leido:hover {
+  background-color: #8f3011 !important; /* aún más oscuro al pasar el mouse */
+}
+
+.btn-no-leido {
+  background-color: #ff5a1f !important;
+  color: white !important;
+}
+
+.btn-no-leido:hover {
+  background-color: #8f3011 !important;
+}
+

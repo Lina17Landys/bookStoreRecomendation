@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="footer-column">
           <h3>Servicios</h3>
           <ul>
-            <li><a href="https://t.me/tu_bot" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+            <li><a href="https://t.me/Imula_bot" target="_blank" rel="noopener noreferrer">Telegram</a></li>
             <li><a href="mailto:contacto@tusitio.com">Contacto</a></li>
           </ul>
         </div>
