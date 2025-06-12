@@ -5,7 +5,7 @@ import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
 import NavBar from "../NavBar/NavBar";
 import BookLoader from "../BookLoader/BookLoader"
-import "./MisGrupos.css";
+import "./misGrupos.css";
 
 const MisGrupos = () => {
   const [user, setUser] = useState(null);
