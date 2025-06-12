@@ -6,7 +6,7 @@ import BooksFamosos from '../../components/booksFamosos/booksfamosos';
 import PasosGuia from '../../components/pasosGuia/pasosGuia';
 import Footer from '../../components/footer/footer';
 import BookLoader from '../../components/BookLoader/BookLoader';
-import "./landing.css";
+import "./LandingPage.css";
 
 const LandingPage = () => {
   const [cargando, setCargando] = useState(true);
