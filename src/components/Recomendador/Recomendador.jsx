@@ -17,7 +17,7 @@ const Recomendador = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    const endpoint = 'https://7cac-34-125-170-212.ngrok-free.app'; // Reemplaza por tu URL real
+    const endpoint = 'https://5a7f-34-125-170-212.ngrok-free.app'; // Reemplaza por tu URL real
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
