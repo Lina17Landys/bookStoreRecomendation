@@ -111,7 +111,7 @@ const SelectionScreen1 = () => {
 
   if (loadingInicial) {
     return (
-      <div className="selection-screen1">
+      <div className="ss1-contenedor">
         <NavBar activePage="recomendacion" />
         <BookLoader />
       </div>
@@ -133,54 +133,54 @@ const SelectionScreen1 = () => {
   };
 
   return (
-    <div className="selection-screen1">
+    <div className="ss1-contenedor">
       <NavBar activePage="inicio" />
-      <h2 className="selection-title">
+      <h2 className="ss1-titulo">
         Selecciona 3 libros que hayas leído o te llamen la atención
       </h2>
       <input
         type="text"
         placeholder="Buscar libro"
-        className="buscador-libro"
+        className="ss1-buscador"
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
       />
-      <div className="libros-lista">
-        <div className="libros-fila">
+      <div className="ss1-lista">
+        <div className="ss1-fila">
           {resultados.slice(0, 5).map((libro, index) => (
             <div
               key={index}
-              className={`libro-tarjeta ${seleccionados.includes(libro.titulo) ? 'seleccionado' : ''}`}
+              className={`ss1-tarjeta ${seleccionados.includes(libro.titulo) ? 'seleccionado' : ''}`}
               onClick={() => toggleSeleccion(libro.titulo)}
             >
               <img
                 src={libro.imagen}
                 alt={libro.titulo}
-                className="libro-imagen"
+                className="ss1-imagen"
               />
             </div>
           ))}
         </div>
-        <div className="libros-fila">
+        <div className="ss1-fila">
           {resultados.slice(5, 10).map((libro, index) => (
             <div
               key={index + 5}
-              className={`libro-tarjeta ${seleccionados.includes(libro.titulo) ? 'seleccionado' : ''}`}
+              className={`ss1-tarjeta ${seleccionados.includes(libro.titulo) ? 'seleccionado' : ''}`}
               onClick={() => toggleSeleccion(libro.titulo)}
             >
               <img
                 src={libro.imagen}
                 alt={libro.titulo}
-                className="libro-imagen"
+                className="ss1-imagen"
               />
             </div>
           ))}
         </div>
       </div>
-      <div className="botones-navegacion">
-        <button className="boton-anterior" disabled>Anterior</button>
+      <div className="ss1-navegacion">
+        <button className="ss1-anterior" disabled>Anterior</button>
         <button
-          className="boton-siguiente"
+          className="ss1-siguiente"
           onClick={handleContinuar}
           disabled={seleccionados.length !== 3}
         >
