@@ -6,10 +6,18 @@ const Recomendador = () => {
   const [respuesta, setRespuesta] = useState('');
   const [libros, setLibros] = useState([]);
   const [grupos, setGrupos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
+    if (!preferencias.trim()) {
+      setError('Por favor describe tus gustos literarios antes de continuar.');
+      return;
+    }
     e.preventDefault();
-    const endpoint = 'https://db17-34-19-56-103.ngrok-free.app'; // Reemplaza por tu URL real
+    setLoading(true);
+    setError('');
+    const endpoint = 'https://7cac-34-125-170-212.ngrok-free.app'; // Reemplaza por tu URL real
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -22,6 +30,9 @@ const Recomendador = () => {
       setGrupos(data.grupos || []);
     } catch (err) {
       console.error('Error al obtener recomendaciones:', err);
+      setError('No pudimos obtener recomendaciones. Intenta de nuevo más tarde.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,10 +53,16 @@ const Recomendador = () => {
           <option value="sci-fi">Ciencia ficción</option>
           <option value="historical">Histórico</option>
         </select>
-        <button type="submit" style={{ padding: '12px', fontSize: '16px', background: '#ff5a1f', color: 'white', border: 'none', borderRadius: '6px' }}>
-          Recomendar
+        <button type="submit" style={{ padding: '12px', fontSize: '16px', background: '#ff5a1f', color: 'white', border: 'none', borderRadius: '6px' }} disabled={loading}>
+          {loading ? 'Cargando...' : 'Recomendar'}
         </button>
       </form>
+
+      {error && (
+        <div style={{ marginTop: '16px', color: 'red', fontWeight: 'bold' }}>
+          {error}
+        </div>
+      )}
 
       {respuesta && (
         <div style={{ marginTop: '24px', fontWeight: 'bold' }}>
@@ -54,8 +71,8 @@ const Recomendador = () => {
       )}
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
-        {libros.map((libro, index) => (
-          <div key={index} style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '16px', width: '180px' }}>
+        {libros.map((libro) => (
+          <div key={`${libro.titulo}-${libro.autor}`} style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '16px', width: '180px' }}>
             <img src={libro.imagen} alt={libro.titulo} style={{ width: '100%', borderRadius: '4px' }} />
             <h4>{libro.titulo}</h4>
             <p>{libro.autor}</p>
