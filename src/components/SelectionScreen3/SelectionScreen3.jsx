@@ -4,42 +4,56 @@ import { useNavigate } from 'react-router-dom';
 import { saveUserPreferences } from '../../utils/firebaseHelpers';
 import './SelectionScreen3.css';
 import NavBar from '../NavBar/NavBar';
-
-const autoresBase = [
-  "Gabriel García Márquez",
-  "J.K. Rowling",
-  "J.R.R. Tolkien",
-  "George Orwell",
-  "Jane Austen",
-  "Haruki Murakami",
-  "Stephen King",
-  "Isabel Allende",
-  "Ernest Hemingway",
-  "Leo Tolstoy",
-  "Agatha Christie",
-  "Mark Twain",
-  "Franz Kafka",
-  "Paulo Coelho",
-  "Virginia Woolf"
-];
+import BookLoader from '../BookLoader/BookLoader';
 
 const SelectionScreen3 = () => {
   const [busqueda, setBusqueda] = useState('');
-  const [resultados, setResultados] = useState(autoresBase.slice(0, 10));
+  const [resultados, setResultados] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
+  const [loadingAleatorios, setLoadingAleatorios] = useState(true);
+
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
 
+  const fetchAutores = async (query) => {
+    const res = await fetch(`https://openlibrary.org/search/authors.json?q=${encodeURIComponent(query)}`);
+    const data = await res.json();
+    return data.docs.map((autor) => autor.name);
+  };
+
+  // Cargar autores aleatorios al iniciar
   useEffect(() => {
-    if (busqueda.trim() === '') {
-      setResultados(autoresBase.slice(0, 10));
-    } else {
-      const filtrados = autoresBase.filter((autor) =>
-        autor.toLowerCase().includes(busqueda.toLowerCase())
-      );
-      setResultados(filtrados.slice(0, 10));
-    }
+    const fetchAleatorios = async () => {
+      setLoadingAleatorios(true);
+      try {
+        const letras = ['a', 'm', 's'];
+        const respuestas = await Promise.all(letras.map((l) => fetchAutores(l)));
+        const combinados = [...new Set(respuestas.flat())].slice(0, 10);
+        setResultados(combinados);
+      } catch (error) {
+        console.error("Error al cargar autores aleatorios:", error);
+      } finally {
+        setLoadingAleatorios(false);
+      }
+    };
+
+    fetchAleatorios();
+  }, []);
+
+  // Buscar autores manualmente
+  useEffect(() => {
+    if (busqueda.trim() === '') return;
+    const fetchBusqueda = async () => {
+      try {
+        const nombres = await fetchAutores(busqueda);
+        setResultados([...new Set(nombres)].slice(0, 10));
+      } catch (error) {
+        console.error("Error en búsqueda de autores:", error);
+      }
+    };
+
+    fetchBusqueda();
   }, [busqueda]);
 
   const toggleSeleccion = (autor) => {
@@ -71,37 +85,45 @@ const SelectionScreen3 = () => {
     <div className="selection-screen3">
       <NavBar activePage="recomendacion" />
       <h2 className="selection-title3">Selecciona 3 autores favoritos</h2>
+
       <input
         type="text"
-        placeholder="🔍 Buscar autor"
+        placeholder="Buscar autor"
         className="buscador-libro3"
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
       />
-      <div className="libros-lista3">
-        <div className="libros-fila">
-          {resultados.slice(0, 5).map((autor, index) => (
-            <div
-              key={index}
-              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-              onClick={() => toggleSeleccion(autor)}
-            >
-              {autor}
-            </div>
-          ))}
+
+      {loadingAleatorios ? (
+        <div className="loader-container">
+          <BookLoader />
         </div>
-        <div className="libros-fila">
-          {resultados.slice(5, 10).map((autor, index) => (
-            <div
-              key={index + 5}
-              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-              onClick={() => toggleSeleccion(autor)}
-            >
-              {autor}
-            </div>
-          ))}
+      ) : (
+        <div className="libros-lista3">
+          <div className="libros-fila">
+            {resultados.slice(0, 5).map((autor) => (
+              <div
+                key={autor}
+                className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
+                onClick={() => toggleSeleccion(autor)}
+              >
+                {autor}
+              </div>
+            ))}
+          </div>
+          <div className="libros-fila">
+            {resultados.slice(5, 10).map((autor) => (
+              <div
+                key={autor}
+                className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
+                onClick={() => toggleSeleccion(autor)}
+              >
+                {autor}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="botones-navegacion3">
         <button className="boton-anterior3" onClick={() => navigate('/selection2')}>

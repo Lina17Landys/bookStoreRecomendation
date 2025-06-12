@@ -1,0 +1,27 @@
+/* ChatGrupo.css */
+.chat-grupo {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+.chat-mensajes {
+  height: 300px;
+  overflow-y: auto;
+  background: #f4f4f4;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.mensaje {
+  background: #fff;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+}
+.mensaje.mio {
+  background: #d1ffd1;
+  text-align: right;
+}
+.chat-form {
+  display: flex;
+  gap: 8px;
+}

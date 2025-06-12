@@ -54,8 +54,8 @@
   transition: all 0.2s ease;
   background-color: #fff;
   padding: 12px;
-  width: 120px;
-  height: 180px;
+  width: 100px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,3 +104,4 @@
   background-color: #ffd4bc;
   cursor: not-allowed;
 }
+

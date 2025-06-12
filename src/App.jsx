@@ -14,6 +14,8 @@ import EditarPerfilPage from './pages/EditarPerfilPage/EditarPerfilPage';
 import ReaderLevelPage from './pages/ReaderLevelPage/ReaderLevelPage';
 import RecommendationPage from './pages/RecommendationPage/RecommendationPage';
 import GruposPage from './pages/GruposPage/GruposPage';
+import misGrupos from './components/misGrupos/misGrupos'; // ajusta ruta si cambias ubicación
+import ChatGrupo from "./components/ChatGrupo/ChatGrupo";  // ajusta ruta si cambias ubicación
 import Buscar from './components/Buscar/Buscar';
 
 function App() {
@@ -32,7 +34,13 @@ function App() {
         <Route path="/reader-level" element={<ReaderLevelPage />} />
         <Route path="/recomendacion" element={<RecommendationPage />} />
         <Route path="/grupos" element={<GruposPage />} />
+        <Route path="/grupos/:groupId/chat" element={<ChatGrupo />} />
         <Route path="/buscar" element={<Buscar />} />
+                <Route path="/mis-grupos" element={<misGrupos />} />
+        {/* IMPORTANTE: Asegúrate de que esta ruta esté correcta */}
+        <Route path="/grupos/:groupId/chat" element={<ChatGrupo />} />
+        {/* Ruta alternativa por si acaso */}
+        <Route path="/grupo/:groupId" element={<ChatGrupo />} />
       </Routes>
     </div>
   );
