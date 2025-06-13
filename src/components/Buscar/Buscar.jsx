@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { collection, getDocs, doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../../services/firebaseConfig';
-import { getSuggestedGroups } from "../../utils/groupSuggestion";
+import { getSuggestedGroups } from "../../utils/groupSuggestions";
 import NavBar from '../NavBar/NavBar';
 import BookLoader from '../BookLoader/BookLoader';
 import './Buscar.css';

@@ -1,10 +1,16 @@
+/* ==========================
+📘 LIBROS RECOMENDADOS
+========================== */
+
+/* 📦 Contenedor principal */
 .libros-recomendados-container {
   max-width: 730px;
-  margin-top: -50; /* Antes decía -50px */
+  margin-top: -50px; /* corregido */
   padding-top: 0;
 }
 
-.libros-header {
+/* 🔠 Header de libros */
+.libros-recomendados-container .libros-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,13 +18,14 @@
   margin-bottom: 5px;
 }
 
-.libros-header h3 {
+.libros-recomendados-container .libros-header h3 {
   font-size: 20px;
   color: #382110;
   margin: 0;
 }
 
-.ver-mas {
+/* 🔗 Botón "Ver más" */
+.libros-recomendados-container .ver-mas {
   font-size: 14px;
   color: #ff5a1f;
   background: none;
@@ -34,13 +41,15 @@
   color: #382110;
 }
 
-.sin-recomendaciones {
+/* ❗ Estado vacío */
+.libros-recomendados-container .sin-recomendaciones {
   color: #8C7E74;
   font-size: 16px;
   padding: 12px 0;
 }
 
-.libros-grid {
+/* 🧱 Grid de libros */
+.libros-recomendados-container .libros-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
@@ -48,13 +57,8 @@
   margin-left: 20px;
 }
 
-
-.libro-item:hover {
-  transform: translateY(-4px);
-}
-
-.libro-item {
-  flex: 0 0 160px;
+/* 🧩 Tarjeta individual */
+.libros-recomendados-container .libro-item {
   background-color: #f8f5ef;
   padding: 12px;
   border-radius: 12px;
@@ -64,36 +68,43 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 6px; /* espacio compacto entre todos los elementos */
+  gap: 6px;
+  flex: 0 0 160px;
 }
 
+.libro-item:hover {
+  transform: translateY(-4px);
+}
+
+/* 🖼️ Imagen del libro */
 .libro-item img {
-  width: 140px;   /* tamaño fijo ancho */
-  height: 200px;  /* tamaño fijo alto */
-  object-fit: cover;  /* recorta la imagen para que no se distorsione */
+  width: 140px;
+  height: 200px;
+  object-fit: cover;
   border-radius: 8px;
 }
 
-
-.libro-titulo {
+/* 📝 Título del libro */
+.libro-item .libro-titulo {
   font-size: 14px;
   color: #000;
   font-weight: bold;
-  margin: 4px 0 0 0; /* más cerca de la portada */
-  white-space: nowrap;        /* evita salto de línea */
-  overflow: hidden;           /* oculta el texto que se sale */
-  text-overflow: ellipsis;    /* agrega puntos suspensivos al final */
-  max-width: 140px;           /* para que coincida con la imagen */
+  margin: 4px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
 }
 
-
-.libro-autor {
+/* 👤 Autor del libro */
+.libro-item .libro-autor {
   font-size: 13px;
   color: #382110;
-  margin: 2px 0 6px 0; /* menos espacio entre título y botones */
+  margin: 2px 0 6px 0;
 }
 
-.botones-libro {
+/* 🎛️ Botones */
+.libro-item .botones-libro {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -105,42 +116,78 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  background-color: #ff5a1f; /* <-- este valor pisa los estilos personalizados */
+  background-color: #ff5a1f;
   color: white;
   transition: background-color 0.3s;
   min-width: 140px;
   white-space: nowrap;
 }
 
-
 .botones-libro button:hover {
-  background-color: #8f3011;
+  background-color: #382110;
 }
 
-.btn-eliminar {
+/* 🎯 Estados de los botones */
+.botones-libro .btn-eliminar {
   background-color: #ccc;
   color: #382110;
 }
 
-.btn-eliminar:hover {
+.botones-libro .btn-eliminar:hover {
   background-color: #b3a89d;
 }
 
-.btn-leido {
-  background-color: #8f3011 !important; /* verde más oscuro */
+.botones-libro .btn-leido {
+  background-color: #382110 !important;
   color: white !important;
 }
 
-.btn-leido:hover {
-  background-color: #8f3011 !important; /* aún más oscuro al pasar el mouse */
+.botones-libro .btn-leido:hover {
+  background-color: #382110 !important;
 }
 
-.btn-no-leido {
+.botones-libro .btn-no-leido {
   background-color: #ff5a1f !important;
   color: white !important;
 }
 
-.btn-no-leido:hover {
-  background-color: #8f3011 !important;
+.botones-libro .btn-no-leido:hover {
+  background-color: #382110 !important;
 }
 
+
+/* ==========================
+📱 RESPONSIVE
+========================== */
+
+/* Tablets: 2 columnas */
+@media (max-width: 768px) {
+  .libros-recomendados-container .libros-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 0;
+  }
+}
+
+/* Móviles: 1 columna */
+@media (max-width: 480px) {
+  .libros-recomendados-container .libros-grid {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+    margin-left: 0;
+  }
+
+  .botones-libro button {
+    min-width: 100%;
+  }
+
+  .libro-item img {
+    width: 100%;
+    height: auto;
+  }
+
+  .libro-item .libro-titulo,
+  .libro-item .libro-autor {
+    max-width: 100%;
+    white-space: normal;
+  }
+}

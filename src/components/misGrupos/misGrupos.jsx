@@ -81,8 +81,6 @@ const MisGrupos = () => {
                 <div className="grupo-info">
                   <h3 className="grupo-nombre">{g.nombre}</h3>
                   <p className="grupo-descripcion">{g.descripcion}</p>
-                  {/* Debug info - quitar después */}
-                  <small style={{color: '#666'}}>ID: {g.id || 'Sin ID'}</small>
                 </div>
                 <div className="grupo-botones">
                   <button 

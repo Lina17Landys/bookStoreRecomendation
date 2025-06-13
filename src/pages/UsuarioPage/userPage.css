@@ -38,4 +38,49 @@ body {
   margin: 12px 0;
 }
 
+.rightSidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 380px; 
+}
 
+@media (max-width: 1024px) {
+  .perfilConFooter,
+  .usuarioContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
+  }
+
+  .leftSidebar {
+    width: 100%;
+    margin-right: 0;
+    align-items: center;
+  }
+
+  .rightSidebar {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+  .usuarioContainer {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .rightSidebar,
+  .leftSidebar,
+  .containerUser {
+    width: 100%;
+    align-items: center;
+  }
+
+  .leftSidebar {
+    flex-direction: column;
+  }
+}

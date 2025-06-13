@@ -1,76 +1,96 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { getAuth } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { saveUserPreferences } from '../../utils/firebaseHelpers';
-import './SelectionScreen3.css';
-import NavBar from '../NavBar/NavBar';
-
-const autoresBase = [
-  "Gabriel García Márquez",
-  "J.K. Rowling",
-  "J.R.R. Tolkien",
-  "George Orwell",
-  "Jane Austen",
-  "Haruki Murakami",
-  "Stephen King",
-  "Isabel Allende",
-  "Ernest Hemingway",
-  "Leo Tolstoy",
-  "Agatha Christie",
-  "Mark Twain",
-  "Franz Kafka",
-  "Paulo Coelho",
-  "Virginia Woolf"
-];
+import React, { useState, useEffect } from "react";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { saveUserPreferences } from "../../utils/firebaseHelpers";
+import "./SelectionScreen3.css";
+import NavBar from "../NavBar/NavBar";
+import BookLoader from "../BookLoader/BookLoader";
+import { FaSearch } from "react-icons/fa";
 
 const SelectionScreen3 = () => {
-  const [busqueda, setBusqueda] = useState('');
+  const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
 
-  const fetchAutores = async (query) => {
-    const res = await fetch(`https://openlibrary.org/search/authors.json?q=${encodeURIComponent(query)}`);
-    const data = await res.json();
-    return data.docs.map((autor) => autor.name);
+  const normalizar = (nombre) => nombre.trim().toLowerCase();
+
+  const generarQueryRandom = () => {
+    const letras = "abcdefghijklmnopqrstuvwxyz";
+    const largo = Math.floor(Math.random() * 3) + 2;
+    return Array.from({ length: largo }, () =>
+      letras.charAt(Math.floor(Math.random() * letras.length))
+    ).join("");
   };
 
-  // Cargar autores aleatorios al iniciar
+  const fetchAutoresRandom = async () => {
+    setLoading(true);
+    try {
+      const queries = Array.from({ length: 5 }, () => generarQueryRandom());
+      const respuestas = await Promise.all(
+        queries.map(async (q) => {
+          const res = await fetch(
+            `https://openlibrary.org/search/authors.json?q=${q}`
+          );
+          const data = await res.json();
+          return data.docs.map((a) => a.name);
+        })
+      );
+      const combinados = [...new Set(respuestas.flat())]
+        .filter(Boolean)
+        .slice(0, 20);
+      setResultados(combinados);
+    } catch (error) {
+      console.error("Error al cargar autores aleatorios:", error);
+      setError("No se pudieron cargar autores. Intenta recargar.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchAleatorios = async () => {
-      setLoadingAleatorios(true);
+    fetchAutoresRandom();
+  }, []);
+
+  useEffect(() => {
+    const fetchBusqueda = async () => {
+      if (busqueda.trim() === "") {
+        fetchAutoresRandom();
+        return;
+      }
+
       try {
-        const letras = ['a', 'm', 's'];
-        const respuestas = await Promise.all(letras.map((l) => fetchAutores(l)));
-        const combinados = [...new Set(respuestas.flat())].slice(0, 10);
-        setResultados(combinados);
+        const res = await fetch(
+          `https://openlibrary.org/search/authors.json?q=${encodeURIComponent(
+            busqueda
+          )}`
+        );
+        const data = await res.json();
+        const nombres = data.docs.map((a) => a.name).filter(Boolean);
+        setResultados(nombres.slice(0, 20));
       } catch (error) {
-        console.error("Error al cargar autores aleatorios:", error);
-      } finally {
-        setLoadingAleatorios(false);
+        console.error("Error al buscar autores:", error);
       }
     };
 
-    fetchAleatorios();
-  }, []);
-
-  // Buscar autores manualmente
-  useEffect(() => {
-    if (busqueda.trim() === '') {
-      setResultados(autoresBase.slice(0, 10));
-    } else {
-      const filtrados = autoresBase.filter((autor) =>
-        autor.toLowerCase().includes(busqueda.toLowerCase())
-      );
-      setResultados(filtrados.slice(0, 10));
-    }
+    fetchBusqueda();
   }, [busqueda]);
 
   const toggleSeleccion = (autor) => {
-    if (seleccionados.includes(autor)) {
-      setSeleccionados(seleccionados.filter((a) => a !== autor));
+    const autorNormalizado = normalizar(autor);
+    const yaSeleccionado = seleccionados.some(
+      (a) => normalizar(a) === autorNormalizado
+    );
+
+    if (yaSeleccionado) {
+      setSeleccionados(
+        seleccionados.filter((a) => normalizar(a) !== autorNormalizado)
+      );
     } else if (seleccionados.length < 3) {
       setSeleccionados([...seleccionados, autor]);
     }
@@ -83,10 +103,10 @@ const SelectionScreen3 = () => {
       return;
     }
     setSaving(true);
-    setError('');
+    setError("");
     try {
       await saveUserPreferences(user.uid, { favoriteAuthors: seleccionados });
-      navigate('/reader-level');
+      navigate("/reader-level");
     } catch (err) {
       console.error("Error al guardar autores:", err);
       setError("Hubo un problema al guardar tu selección.");
@@ -95,42 +115,91 @@ const SelectionScreen3 = () => {
     }
   };
 
+  const renderAutores = () => {
+    // Normalizar resultados y eliminar duplicados por nombre
+    const unicos = Array.from(
+      new Map(resultados.map((a) => [normalizar(a), a])).values()
+    );
+
+    // Separar en seleccionados y no seleccionados
+    const ordenados = [
+      ...seleccionados,
+      ...unicos.filter(
+        (autor) =>
+          !seleccionados.some(
+            (sel) => normalizar(sel) === normalizar(autor)
+          )
+      ),
+    ];
+
+    return (
+      <>
+        <div className="libros-fila">
+          {ordenados.slice(0, 5).map((autor, i) => (
+            <div
+              key={`autor1-${i}-${autor}`}
+              className={`libro-tarjeta3 ${
+                seleccionados.some(
+                  (a) => normalizar(a) === normalizar(autor)
+                )
+                  ? "seleccionado"
+                  : ""
+              }`}
+              onClick={() => toggleSeleccion(autor)}
+            >
+              {autor}
+            </div>
+          ))}
+        </div>
+        <div className="libros-fila">
+          {ordenados.slice(5, 10).map((autor, i) => (
+            <div
+              key={`autor2-${i}-${autor}`}
+              className={`libro-tarjeta3 ${
+                seleccionados.some(
+                  (a) => normalizar(a) === normalizar(autor)
+                )
+                  ? "seleccionado"
+                  : ""
+              }`}
+              onClick={() => toggleSeleccion(autor)}
+            >
+              {autor}
+            </div>
+          ))}
+        </div>
+      </>
+    );
+  };
+
+  if (loading || saving) {
+    return (
+      <div className="selection-screen3">
+        <NavBar activePage="recomendacion" />
+        <BookLoader />
+      </div>
+    );
+  }
+
   return (
     <div className="selection-screen3">
-      <NavBar activePage="recomendacion" />
+      <NavBar activePage="inicio" />
       <h2 className="selection-title3">Selecciona 3 autores favoritos</h2>
 
-      <input
-        type="text"
-        placeholder="Buscar autor"
-        className="buscador-libro3"
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-      />
-      <div className="libros-lista3">
-        <div className="libros-fila">
-          {resultados.slice(0, 5).map((autor, index) => (
-            <div
-              key={index}
-              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-              onClick={() => toggleSeleccion(autor)}
-            >
-              {autor}
-            </div>
-          ))}
-        </div>
-        <div className="libros-fila">
-          {resultados.slice(5, 10).map((autor, index) => (
-            <div
-              key={index + 5}
-              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-              onClick={() => toggleSeleccion(autor)}
-            >
-              {autor}
-            </div>
-          ))}
-        </div>
+      <div className="ss3-buscador-contenedor">
+        <input
+          type="text"
+          placeholder="Buscar autor"
+          className="buscador-libro3"
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+        <button className="boton-lupa">
+          <FaSearch />
+        </button>
       </div>
+
+      <div className="libros-lista3">{renderAutores()}</div>
 
       <div className="botones-navegacion3">
         <button className="boton-anterior3" onClick={() => navigate(-1)}>
@@ -141,14 +210,11 @@ const SelectionScreen3 = () => {
           onClick={handleFinalizar}
           disabled={seleccionados.length !== 3 || saving}
         >
-          {saving ? 'Guardando...' : 'Finalizar'}
+          {saving ? "Guardando..." : "Finalizar"}
         </button>
       </div>
-      {error && (
-        <div className="ss3-error" style={{ color: 'red', marginTop: '8px' }}>
-          {error}
-        </div>
-      )}
+
+      {error && <div className="ss3-error">{error}</div>}
     </div>
   );
 };

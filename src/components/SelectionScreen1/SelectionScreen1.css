@@ -1,102 +1,156 @@
-.ss1-contenedor {
-  position: absolute;
-  inset: 0;
-  background-color: #f6f3ee;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  font-family: 'Archivo', sans-serif;
-  margin: 0;
-  padding: 0;
-  padding-top: 85px;
+.selection-screen1 {
+  padding: 2rem;
+  background-color: #fdfdfd;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.ss1-titulo {
-  font-size: 20px;
-  color: #382110;
+.selection-title {
   text-align: center;
-  margin-bottom: 24px;
-  font-weight: bold;
-  justify-content: center;
-  padding-top: 65px;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #333;
 }
 
-.ss1-buscador {
+/* 🔍 Buscador con lupa dentro */
+.ss1-buscador-contenedor {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 1rem;
+}
+
+.buscador-libro {
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto 32px;
-  display: block;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 16px;
-  background-color: white;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
+.boton-lupa {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* 🧱 Lista de libros en grid responsive */
 .ss1-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  margin-bottom: 32px;
-}
-
-.ss1-fila {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(5, auto); /* 👈 auto, no 1fr */
+  justify-content: center; /* Centra las columnas horizontalmente */
+  gap: 1.5rem;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
 }
 
 .ss1-tarjeta {
-  border: 2px solid transparent;
+  width: 120px; 
+  height: 180px; 
   border-radius: 6px;
+  overflow: hidden;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .ss1-tarjeta.seleccionado {
   border-color: #ff5a1f;
 }
 
-.ss1-imagen {
-  width: 120px;
-  height: 180px;
+.ss1-tarjeta img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 4px;
 }
 
-.ss1-navegacion {
+
+.ss1-tarjeta:hover {
+  transform: scale(1.05);
+}
+
+.ss1-tarjeta img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 🎯 Estilo cuando está seleccionado */
+.ss1-tarjeta.seleccionado {
+  border: 2px solid #ff5a1f;
+  box-shadow: 0 0 10px rgba(168, 99, 52, 0.5);
+}
+
+/* 🔄 Loading y error */
+.ss1-loading,
+.ss1-error {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #888;
+  font-size: 1rem;
+}
+
+/* 🔘 Botones de navegación */
+.botones-navegacion {
   display: flex;
   justify-content: center;
-  gap: 24px;
-  padding: 0 16px;
-  max-width: 800px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  padding-bottom: 24px;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-.ss1-anterior,
-.ss1-siguiente {
-  padding: 12px 32px;
-  font-size: 16px;
+.boton-anterior,
+.boton-siguiente {
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.ss1-anterior {
-  background-color: #cfc8c0;
-  color: black;
-}
-
-.ss1-siguiente {
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 500;
   background-color: #ff5a1f;
   color: white;
-  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.ss1-siguiente:disabled {
-  background-color: #ffd4bc;
+.boton-anterior:disabled,
+.boton-siguiente:disabled {
+  background-color: #ccc;
   cursor: not-allowed;
+}
+
+.boton-anterior:hover:not(:disabled),
+.boton-siguiente:hover:not(:disabled) {
+  background-color: #ff5a1f;
+}
+
+/* 📱 Responsive media queries */
+@media (max-width: 768px) {
+  .selection-title {
+    font-size: 1.25rem;
+    margin-top: 40px;
+  }
+
+  .ss1-tarjeta {
+    max-width: 110px;
+    height: 165px;
+  }
+
+  .ss1-lista {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .ss1-lista {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

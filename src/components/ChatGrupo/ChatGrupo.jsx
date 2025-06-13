@@ -3,12 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc, collection, query, orderBy, onSnapshot, addDoc, serverTimestamp, updateDoc, setDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../../services/firebaseConfig";
+import { leaveGroup } from "../../utils/groupUtils"; // IMPORTAR FUNCIÓN
 import NavBar from "../NavBar/NavBar";
 import BookLoader from "../BookLoader/BookLoader";
 import "./ChatGrupo.css";
 
 const ChatGrupo = () => {
-  const { groupId } = useParams();
+  // OBTENER TANTO groupId COMO groupId de los parámetros
+  const params = useParams();
+  const groupId = params.groupId || params.groupId; // Manejar ambas rutas
   const navigate = useNavigate();
   const [grupo, setGrupo] = useState(null);
   const [mensajes, setMensajes] = useState([]);
@@ -16,7 +19,14 @@ const ChatGrupo = () => {
   const [usuario, setUsuario] = useState(null);
   const [nuevoMensaje, setNuevoMensaje] = useState("");
   const [error, setError] = useState(null);
+  const [isUserInGroup, setIsUserInGroup] = useState(false);
   const mensajesEndRef = useRef(null);
+
+  // DEBUG: Agregar logs para verificar parámetros
+  useEffect(() => {
+    console.log("Parámetros recibidos:", params);
+    console.log("groupId extraído:", groupId);
+  }, [params, groupId]);
 
   useEffect(() => {
     const auth = getAuth();
@@ -31,20 +41,22 @@ const ChatGrupo = () => {
   }, [navigate]);
 
   useEffect(() => {
-    if (!usuario) return;
+    if (!usuario || !groupId) return;
 
     const fetchOrCreateGroup = async () => {
       try {
         console.log("Buscando grupo con ID:", groupId);
-        console.log("Parámetros de URL:", useParams());
         
-        // Verificar si groupId existe
-        if (!groupId) {
-          console.error("groupId es undefined");
-          setError("ID de grupo inválido");
-          setLoading(false);
-          return;
+        // Verificar si el usuario está en el grupo
+        const userRef = doc(db, "users", usuario.uid);
+        const userSnap = await getDoc(userRef);
+        let userInGroup = false;
+        
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          userInGroup = userData.myGroups?.some(g => g.id === groupId) || false;
         }
+        setIsUserInGroup(userInGroup);
         
         const grupoRef = doc(db, "groupChats", groupId);
         const docSnap = await getDoc(grupoRef);
@@ -55,7 +67,7 @@ const ChatGrupo = () => {
         } else {
           console.log("Grupo no existe, intentando crear uno por defecto...");
           
-          // Intentar crear el grupo si no existe (para grupos sugeridos)
+          // Grupos por defecto
           const gruposPorDefecto = {
             "magos-dragones": {
               nombre: "Magos y Dragones 🐉",
@@ -231,17 +243,20 @@ const ChatGrupo = () => {
   const salirDelGrupo = async () => {
     if (!usuario) return;
     
+    // Confirmar antes de salir
+    const confirmar = window.confirm("¿Estás seguro de que quieres salir de este grupo?");
+    if (!confirmar) return;
+    
     try {
-      const userRef = doc(db, "users", usuario.uid);
-      const userSnap = await getDoc(userRef);
+      const result = await leaveGroup(usuario.uid, groupId);
       
-      if (userSnap.exists()) {
-        const data = userSnap.data();
-        const nuevosGrupos = data.myGroups?.filter((g) => g.id !== groupId) || [];
-        await updateDoc(userRef, { myGroups: nuevosGrupos });
+      if (result.success) {
+        alert(result.message);
+        setIsUserInGroup(false);
+        navigate("/mis-grupos");
+      } else {
+        alert(result.message);
       }
-      
-      navigate("/mis-grupos");
     } catch (error) {
       console.error("Error al salir del grupo:", error);
       alert("Error al salir del grupo");
@@ -264,6 +279,7 @@ const ChatGrupo = () => {
         <div className="chatgrupo-container">
           <h1>Error</h1>
           <p>{error || "Grupo no encontrado"}</p>
+          <p>Debug ID: {groupId || "Sin ID"}</p>
           <button className="btn-volver" onClick={() => navigate("/mis-grupos")}>
             Volver a Mis Grupos
           </button>
@@ -303,25 +319,37 @@ const ChatGrupo = () => {
           <div ref={mensajesEndRef} />
         </div>
 
-        <form className="chat-form" onSubmit={handleEnviarMensaje}>
-          <input
-            type="text"
-            placeholder="Escribe un mensaje..."
-            value={nuevoMensaje}
-            onChange={(e) => setNuevoMensaje(e.target.value)}
-          />
-          <button type="submit" disabled={!nuevoMensaje.trim()}>
-            Enviar
-          </button>
-        </form>
+        {/* Solo mostrar el formulario si el usuario está en el grupo */}
+        {isUserInGroup ? (
+          <form className="chat-form" onSubmit={handleEnviarMensaje}>
+            <input
+              type="text"
+              placeholder="Escribe un mensaje..."
+              value={nuevoMensaje}
+              onChange={(e) => setNuevoMensaje(e.target.value)}
+            />
+            <button type="submit" disabled={!nuevoMensaje.trim()}>
+              Enviar
+            </button>
+          </form>
+        ) : (
+          <div className="chat-form">
+            <p>Únete al grupo para participar en la conversación</p>
+            <button onClick={() => navigate("/explorar-grupos")}>
+              Explorar Grupos
+            </button>
+          </div>
+        )}
 
         <div className="chatgrupo-botones">
           <button className="btn-volver" onClick={() => navigate("/mis-grupos")}>
             Volver
           </button>
-          <button className="btn-salir" onClick={salirDelGrupo}>
-            Salir del grupo
-          </button>
+          {isUserInGroup && (
+            <button className="btn-salir" onClick={salirDelGrupo}>
+              Salir del grupo
+            </button>
+          )}
         </div>
       </div>
     </>

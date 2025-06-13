@@ -13,7 +13,7 @@
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #8f3011;
+  color: #382110;
 }
 
 .seccion-libros {
@@ -23,7 +23,7 @@
 .titulo-seccion {
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: #8f3011;
+  color: #382110;
   border-bottom: 1px solid #ddd;
   padding-bottom: 0.3rem;
 }
@@ -71,7 +71,7 @@
 .libro-titulo {
   font-size: 1.2rem;
   margin-bottom: 0.2rem;
-  color: #8f3011;
+  color: #382110;
 }
 
 .libro-autor {
@@ -90,7 +90,7 @@
 .rating-label {
   margin-right: 0.5rem;
   font-weight: 600;
-  color: #8f3011;
+  color: #382110;
 }
 
 .estrellas {
@@ -162,7 +162,7 @@ button:focus-visible {
 .btn-leido-toggle:focus,
 .btn-recomendado-toggle:hover,
 .btn-recomendado-toggle:focus {
-  background-color: #6a220c;
+  background-color: #382110;
   transform: translateY(-1px);
 }
 
@@ -173,11 +173,11 @@ button:focus-visible {
 
 .btn-recomendado-toggle.activo:hover,
 .btn-recomendado-toggle.activo:focus {
-  background-color: #6a220c;
+  background-color: #a19f9f;
 }
 
 .btn-leido-toggle.activo {
-  background-color: #6a220c;
+  background-color: #a19f9f;
 }
 
 .btn-leido-toggle.activo:hover,
@@ -189,7 +189,7 @@ button:focus-visible {
 
 /* Botón eliminar */
 .btn-eliminar {
-  background-color: #6a220c;
+  background-color: #584d45;
   color: white;
   padding: 0.5rem;
   font-size: 1.1rem;
@@ -201,7 +201,7 @@ button:focus-visible {
 
 .btn-eliminar:hover,
 .btn-eliminar:focus {
-  background-color: #6a220c;
+  background-color: #382110;
   transform: translateY(-1px);
 }
 

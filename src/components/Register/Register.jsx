@@ -5,7 +5,6 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../../services/firebaseConfig';
 import logo from '../../assets/logo.svg';
 import { collection, query, where, getDocs, doc, setDoc } from 'firebase/firestore';
-import BookLoader from '../../components/BookLoader/BookLoader';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -67,7 +66,6 @@ const Register = () => {
 
   return (
     <div className="register">
-      {loading && <BookLoader />}
 
       <header className="register-header">
         <img src={logo} alt="Logo" className="register-logo" />

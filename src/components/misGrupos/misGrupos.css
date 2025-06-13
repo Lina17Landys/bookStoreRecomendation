@@ -13,7 +13,9 @@
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #8f3011;
+  color: #382110;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
 }
 
 .grupos-grid {
@@ -57,7 +59,7 @@
 
 .grupo-nombre {
   font-size: 1.2rem;
-  color: #8f3011;
+  color: #382110;
   margin-bottom: 0.3rem;
 }
 
@@ -96,8 +98,8 @@
 
 /* Botón "Salir" */
 .btn-salir {
-  background-color: #8f3011;
-  color: #ffd4bc;
+  background-color: #ddd;
+  color: #382110;
   border: none;
   font-family: inherit;
   font-size: 0.9rem;
@@ -109,7 +111,7 @@
 
 .btn-salir:hover,
 .btn-salir:focus-visible {
-  background-color: #6a220c;
+  background-color: #a19f9f;
 }
 
 

@@ -1,10 +1,33 @@
+/* --- Base layout general --- */
+
 .recommendation-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1rem;
   padding-top: 85px; /* Espacio para el header */
-  justify-content: center;
 }
+
+.recommendation-container h2,
+.grupos-section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 24px;
+  color: #382110;
+}
+
+.recommendation-container h3 {
+  font-size: 20px;
+  color: #382110;
+  margin-bottom: 0.5rem;
+}
+
+.recommendation-container p {
+  color: #6b4f3a;
+  font-size: 16px;
+  margin-bottom: 1rem;
+}
+
+/* --- Grid de recomendaciones --- */
 
 .recomendaciones-grid {
   display: grid;
@@ -19,16 +42,14 @@
   padding: 1rem;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* separa contenido y botón */
-  height: 90%; /* que tome toda la altura disponible del grid o contenedor */
+  justify-content: space-between;
+  min-height: 260px;
 }
 
-
 .recomendacion-item button {
-  background-color: #ff5a1f; /* naranja */
+  background-color: #ff5a1f;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -37,16 +58,18 @@
 }
 
 .recomendacion-item button:hover {
-  background-color: #ea580c; 
+  background-color: #ea580c;
 }
 
 .recomendacion-item button[disabled] {
   background-color: #ccc;
   cursor: not-allowed;
-  position: relative;
 }
+
+/* --- Sección de grupos --- */
+
 .grupos-section {
-  padding-top: 10px; /* Espacio para el header */
+  padding-top: 10px;
 }
 
 .grupos-grid {
@@ -88,6 +111,7 @@
   border: none;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .grupo-boton:hover {
@@ -102,6 +126,8 @@
 .ver-mas-wrapper {
   text-align: center;
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .ver-mas-boton {
@@ -113,12 +139,7 @@
   font-size: 1rem;
   text-decoration: underline;
 }
-
-.recommendation-container h2,
-.grupos-section h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
+/* --- Botón flotante de Telegram --- */
 
 .btn-telegram-floating {
   position: fixed;
@@ -142,6 +163,8 @@
   background-color: #ea580c;
 }
 
+/* --- CTA Telegram --- */
+
 .cta-telegram {
   margin: 60px auto;
   padding: 30px;
@@ -149,7 +172,7 @@
   text-align: center;
   background-color: #fff4eb;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .cta-telegram h3 {
@@ -177,4 +200,76 @@
 
 .btn-telegram:hover {
   background-color: #ea580c;
+}
+
+/* --- Media Queries para pantallas pequeñas --- */
+
+@media (max-width: 768px) {
+  .recomendaciones-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+
+  .grupos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .grupo-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grupo-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .grupo-boton {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .cta-telegram {
+    padding: 20px;
+  }
+
+  .btn-telegram-floating {
+    width: 48px;
+    height: 48px;
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendation-container {
+    padding: 1.5rem 0.5rem;
+    padding-top: 100px; /* Espacio para el header */
+  }
+
+  .recommendation-container h2 {
+    font-size: 20px;
+  }
+
+  .recommendation-container h3 {
+    font-size: 18px;
+  }
+
+  .recommendation-container p {
+    font-size: 14px;
+  }
+
+  .cta-telegram h3 {
+    font-size: 18px;
+  }
+
+  .cta-telegram p {
+    font-size: 14px;
+  }
+
+  .btn-telegram {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
 }

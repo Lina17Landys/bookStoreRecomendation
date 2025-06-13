@@ -52,7 +52,7 @@ const SelectionScreen2 = () => {
 
   return (
     <div className="selection-screen">
-      <NavBar activePage="recomendacion" />
+      <NavBar activePage="inicio" />
       <h2 className="selection-title">
         Selecciona 3 géneros literarios que más te gustan
       </h2>
@@ -88,7 +88,7 @@ const SelectionScreen2 = () => {
 
       <div className="botones-navegacion">
         <button
-          className="boton-anterior"
+          className="boton-anterior2"
           onClick={() => navigate(-1)}
         >
           Anterior

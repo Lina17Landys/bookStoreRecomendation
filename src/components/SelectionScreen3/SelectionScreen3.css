@@ -15,30 +15,47 @@
   font-size: 20px;
   color: #382110;
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   font-weight: bold;
   justify-content: center;
-  padding-top: 24px;
+  padding-top: 65px;
+}
+
+.ss3-buscador-contenedor {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 32px;
 }
 
 .buscador-libro3 {
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto 20px;
-  display: block;
   padding: 12px 16px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
   background-color: white;
+  box-sizing: border-box;
+}
+
+.boton-lupa {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #555;
+  cursor: pointer;
 }
 
 .libros-lista3 {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .libros-fila {
@@ -48,22 +65,31 @@
 }
 
 .libro-tarjeta3 {
+  width: 120px;
+  min-height: 80px;
   border: 2px solid transparent;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: #fff;
-  padding: 12px;
-  width: 100px;
-  height: 100px;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  font-weight: 500;
   font-size: 14px;
   color: #382110;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  padding: 8px;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-direction: column;
+  line-height: 1.2;
+  white-space: normal; /* Permite saltos de línea */
+
 }
+
 
 .libro-tarjeta3.seleccionado {
   border-color: #ff5a1f;
@@ -73,11 +99,11 @@
   display: flex;
   justify-content: center;
   gap: 24px;
-  padding: 0 16px; /* espacio a los lados */
-  max-width: 800px; /* o el ancho que quieras */
-  margin: 0 auto; /* centrarlo horizontalmente */
+  padding: 0 16px;
+  max-width: 800px;
+  margin: 0 auto;
   box-sizing: border-box;
-  padding-bottom: 24px; /* espacio al final */
+  padding-bottom: 24px;
 }
 
 .boton-anterior3,
@@ -105,3 +131,125 @@
   cursor: not-allowed;
 }
 
+.ss3-error {
+  text-align: center;
+  font-size: 14px;
+  color: red;
+  margin-top: 12px;
+}
+
+/* ==================== TABLETS (≤ 768px) ==================== */
+@media (max-width: 768px) {
+  .selection-title3 {
+    font-size: 18px;
+    padding-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .ss3-buscador-contenedor {
+    max-width: 90%;
+  }
+
+  .buscador-libro3 {
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+
+  .boton-lupa {
+    font-size: 16px;
+    right: 10px;
+  }
+
+  .libros-lista3 {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .libros-fila {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .libro-tarjeta3 {
+    width: 45%;
+    height: auto;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .botones-navegacion3 {
+    flex-direction: row;
+    gap: 16px;
+    padding: 0 12px 24px;
+  }
+
+  .boton-anterior3,
+  .boton-siguiente3 {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+}
+
+
+/* ==================== MÓVILES (≤ 480px) ==================== */
+@media (max-width: 480px) {
+  .selection-title3 {
+    font-size: 16px;
+    padding-top: 40px;
+    margin-bottom: 16px;
+  }
+
+  .ss3-buscador-contenedor {
+    max-width: 95%;
+    margin-bottom: 20px;
+  }
+
+  .buscador-libro3 {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .boton-lupa {
+    font-size: 14px;
+    right: 8px;
+  }
+
+  .libros-lista3 {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .libros-fila {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .libro-tarjeta3 {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .botones-navegacion3 {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    padding: 0 12px 24px;
+  }
+
+  .boton-anterior3,
+  .boton-siguiente3 {
+    width: 100%;
+    max-width: 320px;
+    font-size: 14px;
+  }
+
+  .ss3-error {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+}

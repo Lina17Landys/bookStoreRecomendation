@@ -53,11 +53,13 @@ const UsuarioPage = () => {
           <div style={{ flexGrow: 1 }}></div>
           <FooterPerfil />
         </div>
-
+        
+        <div className="rightSidebar">
         <div className="containerUser">
           <PerfilUsuario user={userData} />
           <div className="separador" />
           <RecomendacionesLibros username={userData.username} libros={userData.books} />
+        </div>
         </div>
       </div>
     </>

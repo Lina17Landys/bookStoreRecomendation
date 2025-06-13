@@ -88,7 +88,7 @@
 }
 
 
-.boton-anterior,
+.boton-anterior2,
 .boton-siguiente {
   padding: 12px 32px;
   font-size: 16px;
@@ -97,7 +97,7 @@
   cursor: pointer;
 }
 
-.boton-anterior {
+.boton-anterior2 {
   background-color: #cfc8c0;
   color: black;
 }
@@ -113,3 +113,82 @@
   cursor: not-allowed;
 }
 
+/* ========== TABLETS (≤ 768px) ========== */
+@media (max-width: 768px) {
+  .selection-title {
+    font-size: 18px;
+    padding-top: 50px;
+  }
+
+  .buscador-libro {
+    max-width: 90%;
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+
+  .libros-fila {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .libro-tarjeta {
+    width: 110px;
+    height: 75px;
+    font-size: 15px;
+  }
+
+  .libro-imagen {
+    width: 110px;
+    height: 165px;
+  }
+
+  .boton-anterior2,
+  .boton-siguiente {
+    padding: 10px 24px;
+    font-size: 15px;
+  }
+}
+
+/* ========== MÓVILES (≤ 480px) ========== */
+@media (max-width: 480px) {
+  .selection-title {
+    font-size: 16px;
+    padding-top: 40px;
+  }
+
+  .buscador-libro {
+    width: 90%;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .libros-fila {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .libro-tarjeta {
+    width: 100px;
+    height: 70px;
+    font-size: 14px;
+  }
+
+  .libro-imagen {
+    width: 100px;
+    height: 150px;
+  }
+
+  .botones-navegacion {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .boton-anterior2,
+  .boton-siguiente {
+    width: 100%;
+    max-width: 320px;
+    font-size: 14px;
+  }
+}
