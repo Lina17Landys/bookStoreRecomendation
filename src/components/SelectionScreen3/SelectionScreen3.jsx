@@ -1,47 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { saveUserPreferences } from '../../utils/firebaseHelpers';
 import './SelectionScreen3.css';
 import NavBar from '../NavBar/NavBar';
 
-const autoresBase = [
-  "Gabriel García Márquez",
-  "J.K. Rowling",
-  "J.R.R. Tolkien",
-  "George Orwell",
-  "Jane Austen",
-  "Haruki Murakami",
-  "Stephen King",
-  "Isabel Allende",
-  "Ernest Hemingway",
-  "Leo Tolstoy",
-  "Agatha Christie",
-  "Mark Twain",
-  "Franz Kafka",
-  "Paulo Coelho",
-  "Virginia Woolf"
-];
-
 const SelectionScreen3 = () => {
   const [busqueda, setBusqueda] = useState('');
-  const [resultados, setResultados] = useState(autoresBase.slice(0, 10));
+  const [resultados, setResultados] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState('');
+  const debounceRef = useRef(null);
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
 
   useEffect(() => {
-    if (busqueda.trim() === '') {
-      setResultados(autoresBase.slice(0, 10));
-    } else {
-      const filtrados = autoresBase.filter((autor) =>
-        autor.toLowerCase().includes(busqueda.toLowerCase())
-      );
-      setResultados(filtrados.slice(0, 10));
-    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      const query = busqueda.trim();
+      if (!query) {
+        setResultados([]);
+        return;
+      }
+      setSearchLoading(true);
+      setSearchError('');
+      try {
+        const res = await fetch(`https://openlibrary.org/search/authors.json?q=${encodeURIComponent(query)}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const autores = data.docs.slice(0, 10).map((doc) => {
+          return {
+            nombre: doc.name,
+            photo: doc.photo_id
+              ? `https://covers.openlibrary.org/a/id/${doc.photo_id}-M.jpg`
+              : null,
+          };
+        });
+        setResultados(autores);
+      } catch (err) {
+        console.error('Error al cargar autores:', err);
+        setSearchError('No se pudieron cargar los autores.');
+      } finally {
+        setSearchLoading(false);
+      }
+    }, 300);
+    return () => clearTimeout(debounceRef.current);
   }, [busqueda]);
 
   const toggleSeleccion = (autor) => {
@@ -82,26 +89,42 @@ const SelectionScreen3 = () => {
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
       />
+      {searchLoading && <div className="ss3-loading">Cargando autores...</div>}
+      {searchError && <div className="ss3-error">{searchError}</div>}
       <div className="libros-lista3">
         <div className="libros-fila">
-          {resultados.slice(0, 5).map((autor) => (
+          {resultados.slice(0, 5).map((autorObj) => (
             <div
-              key={autor}
-              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-              onClick={() => toggleSeleccion(autor)}
+              key={autorObj.nombre}
+              className={`libro-tarjeta3 ${seleccionados.includes(autorObj.nombre) ? 'seleccionado' : ''}`}
+              onClick={() => toggleSeleccion(autorObj.nombre)}
             >
-              {autor}
+              {autorObj.photo && (
+                <img
+                  src={autorObj.photo}
+                  alt={autorObj.nombre}
+                  style={{ width: '100%', height: 'auto', marginBottom: '8px' }}
+                />
+              )}
+              <span>{autorObj.nombre}</span>
             </div>
           ))}
         </div>
         <div className="libros-fila">
-          {resultados.slice(5, 10).map((autor) => (
+          {resultados.slice(5, 10).map((autorObj) => (
             <div
-              key={autor}
-              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-              onClick={() => toggleSeleccion(autor)}
+              key={autorObj.nombre}
+              className={`libro-tarjeta3 ${seleccionados.includes(autorObj.nombre) ? 'seleccionado' : ''}`}
+              onClick={() => toggleSeleccion(autorObj.nombre)}
             >
-              {autor}
+              {autorObj.photo && (
+                <img
+                  src={autorObj.photo}
+                  alt={autorObj.nombre}
+                  style={{ width: '100%', height: 'auto', marginBottom: '8px' }}
+                />
+              )}
+              <span>{autorObj.nombre}</span>
             </div>
           ))}
         </div>
