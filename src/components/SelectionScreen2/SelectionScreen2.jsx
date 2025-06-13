@@ -20,6 +20,8 @@ const generosOpciones = [
 
 const SelectionScreen2 = () => {
   const [seleccionados, setSeleccionados] = useState([]);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const toggleSeleccion = (genero) => {
@@ -31,12 +33,20 @@ const SelectionScreen2 = () => {
   };
 
   const handleContinuar = async () => {
-    if (seleccionados.length === 3) {
+    if (seleccionados.length !== 3) return;
+    setSaving(true);
+    setError('');
+    try {
       const user = getAuth().currentUser;
       if (user) {
         await saveUserPreferences(user.uid, { favoriteGenres: seleccionados });
       }
       navigate("/selection3");
+    } catch (err) {
+      console.error("Error al guardar preferencias:", err);
+      setError("No se pudo guardar. Intenta de nuevo.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -49,9 +59,9 @@ const SelectionScreen2 = () => {
      
       <div className="libros-lista">
         <div className="libros-fila">
-          {generosOpciones.slice(0, 5).map((genero, index) => (
+          {generosOpciones.slice(0, 5).map((genero) => (
             <div
-              key={index}
+              key={genero}
               className={`libro-tarjeta ${
                 seleccionados.includes(genero) ? "seleccionado" : ""
               }`}
@@ -62,9 +72,9 @@ const SelectionScreen2 = () => {
           ))}
         </div>
         <div className="libros-fila">
-          {generosOpciones.slice(5, 10).map((genero, index) => (
+          {generosOpciones.slice(5, 10).map((genero) => (
             <div
-              key={index + 5}
+              key={genero}
               className={`libro-tarjeta ${
                 seleccionados.includes(genero) ? "seleccionado" : ""
               }`}
@@ -79,18 +89,19 @@ const SelectionScreen2 = () => {
       <div className="botones-navegacion">
         <button
           className="boton-anterior"
-          onClick={() => (window.location.href = "/selection1")}
+          onClick={() => navigate(-1)}
         >
           Anterior
         </button>
         <button
           className="boton-siguiente"
           onClick={handleContinuar}
-          disabled={seleccionados.length !== 3}
+          disabled={seleccionados.length !== 3 || saving}
         >
-          Siguiente
+          {saving ? 'Guardando...' : 'Siguiente'}
         </button>
       </div>
+      {error && <div className="ss2-error" style={{ color: 'red', marginTop: '8px' }}>{error}</div>}
     </div>
   );
 };

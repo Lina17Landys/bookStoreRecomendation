@@ -1,17 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { saveUserPreferences } from '../../utils/firebaseHelpers';
 import './SelectionScreen3.css';
 import NavBar from '../NavBar/NavBar';
-import BookLoader from '../BookLoader/BookLoader';
+
+const autoresBase = [
+  "Gabriel García Márquez",
+  "J.K. Rowling",
+  "J.R.R. Tolkien",
+  "George Orwell",
+  "Jane Austen",
+  "Haruki Murakami",
+  "Stephen King",
+  "Isabel Allende",
+  "Ernest Hemingway",
+  "Leo Tolstoy",
+  "Agatha Christie",
+  "Mark Twain",
+  "Franz Kafka",
+  "Paulo Coelho",
+  "Virginia Woolf"
+];
 
 const SelectionScreen3 = () => {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
-  const [loadingAleatorios, setLoadingAleatorios] = useState(true);
-
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
@@ -43,17 +58,14 @@ const SelectionScreen3 = () => {
 
   // Buscar autores manualmente
   useEffect(() => {
-    if (busqueda.trim() === '') return;
-    const fetchBusqueda = async () => {
-      try {
-        const nombres = await fetchAutores(busqueda);
-        setResultados([...new Set(nombres)].slice(0, 10));
-      } catch (error) {
-        console.error("Error en búsqueda de autores:", error);
-      }
-    };
-
-    fetchBusqueda();
+    if (busqueda.trim() === '') {
+      setResultados(autoresBase.slice(0, 10));
+    } else {
+      const filtrados = autoresBase.filter((autor) =>
+        autor.toLowerCase().includes(busqueda.toLowerCase())
+      );
+      setResultados(filtrados.slice(0, 10));
+    }
   }, [busqueda]);
 
   const toggleSeleccion = (autor) => {
@@ -65,19 +77,21 @@ const SelectionScreen3 = () => {
   };
 
   const handleFinalizar = async () => {
-    if (seleccionados.length === 3) {
-      if (!user) {
-        alert("Debes iniciar sesión para continuar.");
-        return;
-      }
-
-      try {
-        await saveUserPreferences(user.uid, { favoriteAuthors: seleccionados });
-        navigate('/reader-level');
-      } catch (error) {
-        console.error("Error al guardar autores:", error);
-        alert("Hubo un problema al guardar tu selección.");
-      }
+    if (seleccionados.length !== 3) return;
+    if (!user) {
+      setError("Debes iniciar sesión para continuar.");
+      return;
+    }
+    setSaving(true);
+    setError('');
+    try {
+      await saveUserPreferences(user.uid, { favoriteAuthors: seleccionados });
+      navigate('/reader-level');
+    } catch (err) {
+      console.error("Error al guardar autores:", err);
+      setError("Hubo un problema al guardar tu selección.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -93,50 +107,48 @@ const SelectionScreen3 = () => {
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
       />
-
-      {loadingAleatorios ? (
-        <div className="loader-container">
-          <BookLoader />
+      <div className="libros-lista3">
+        <div className="libros-fila">
+          {resultados.slice(0, 5).map((autor, index) => (
+            <div
+              key={index}
+              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
+              onClick={() => toggleSeleccion(autor)}
+            >
+              {autor}
+            </div>
+          ))}
         </div>
-      ) : (
-        <div className="libros-lista3">
-          <div className="libros-fila">
-            {resultados.slice(0, 5).map((autor) => (
-              <div
-                key={autor}
-                className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-                onClick={() => toggleSeleccion(autor)}
-              >
-                {autor}
-              </div>
-            ))}
-          </div>
-          <div className="libros-fila">
-            {resultados.slice(5, 10).map((autor) => (
-              <div
-                key={autor}
-                className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
-                onClick={() => toggleSeleccion(autor)}
-              >
-                {autor}
-              </div>
-            ))}
-          </div>
+        <div className="libros-fila">
+          {resultados.slice(5, 10).map((autor, index) => (
+            <div
+              key={index + 5}
+              className={`libro-tarjeta3 ${seleccionados.includes(autor) ? 'seleccionado' : ''}`}
+              onClick={() => toggleSeleccion(autor)}
+            >
+              {autor}
+            </div>
+          ))}
         </div>
-      )}
+      </div>
 
       <div className="botones-navegacion3">
-        <button className="boton-anterior3" onClick={() => navigate('/selection2')}>
+        <button className="boton-anterior3" onClick={() => navigate(-1)}>
           Anterior
         </button>
         <button
           className="boton-siguiente3"
           onClick={handleFinalizar}
-          disabled={seleccionados.length !== 3}
+          disabled={seleccionados.length !== 3 || saving}
         >
-          Finalizar
+          {saving ? 'Guardando...' : 'Finalizar'}
         </button>
       </div>
+      {error && (
+        <div className="ss3-error" style={{ color: 'red', marginTop: '8px' }}>
+          {error}
+        </div>
+      )}
     </div>
   );
 };

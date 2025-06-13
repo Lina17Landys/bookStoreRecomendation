@@ -17,6 +17,7 @@ const RecommendationScreen = () => {
   const [authLoading, setAuthLoading] = useState(true);
   const [mostrarTodosGrupos, setMostrarTodosGrupos] = useState(false);
   const [misGrupos, setMisGrupos] = useState([]);
+  const [error, setError] = useState('');
   
   const auth = getAuth();
 
@@ -102,6 +103,7 @@ const RecommendationScreen = () => {
         setGrupos(gruposSugeridos);
       } catch (error) {
         console.error("Error al generar recomendaciones:", error);
+        setError('Error al generar recomendaciones. Intenta de nuevo más tarde.');
       } finally {
         setLoading(false);
       }
@@ -177,14 +179,19 @@ const RecommendationScreen = () => {
         </div>
       ) : (
         <>
+          {error && (
+            <div className="error-message" style={{ color: 'red', margin: '16px 0' }}>
+              {error}
+            </div>
+          )}
           {recomendaciones.length === 0 ? (
             <div className="no-recommendations">
               <p>No se encontraron recomendaciones. Completa tu perfil para obtener mejores sugerencias.</p>
             </div>
           ) : (
             <div className="recomendaciones-grid">
-              {recomendaciones.map((libro, i) => (
-                <div key={i} className="recomendacion-item">
+              {recomendaciones.map((libro) => (
+                <div key={`${libro.titulo}-${libro.autor}`} className="recomendacion-item">
                   <img src={libro.imagen} alt={libro.titulo} />
                   <h3>{libro.titulo}</h3>
                   <p>{libro.autor}</p>
@@ -206,8 +213,8 @@ const RecommendationScreen = () => {
               <h2>Grupos de lectura recomendados</h2>
               <div className="grupos-grid">
                 {(mostrarTodosGrupos ? grupos : grupos.slice(0, 6)).map(
-                  (g, i) => (
-                    <div key={i} className="grupo-item">
+                  (g) => (
+                    <div key={g.nombre} className="grupo-item">
                       <div className="grupo-avatar">{g.nombre.charAt(0)}</div>
                       <div className="grupo-info">
                         <strong>{g.nombre}</strong>

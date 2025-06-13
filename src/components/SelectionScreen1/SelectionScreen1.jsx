@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "./SelectionScreen1.css";
-import NavBar from "../NavBar/NavBar";
-import BookLoader from "../BookLoader/BookLoader";
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './SelectionScreen1.css';
+import NavBar from '../NavBar/NavBar';
+import BookLoader from '../BookLoader/BookLoader';
 
 const SelectionScreen1 = () => {
   const navigate = useNavigate();
@@ -10,6 +10,9 @@ const SelectionScreen1 = () => {
   const [resultados, setResultados] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
   const [loadingInicial, setLoadingInicial] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState('');
+  const debounceRef = useRef(null);
 
   useEffect(() => {
     const fetchIniciales = async () => {
@@ -84,9 +87,12 @@ const SelectionScreen1 = () => {
   }, []);
 
   useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
     if (busqueda.length < 3) return;
 
-    const fetchLibros = async () => {
+    debounceRef.current = setTimeout(async () => {
+      setSearchLoading(true);
+      setSearchError('');
       try {
         const res = await fetch(
           `https://openlibrary.org/search.json?q=${encodeURIComponent(
@@ -111,11 +117,16 @@ const SelectionScreen1 = () => {
           return [...seleccionadosPrevios, ...librosFiltrados];
         });
       } catch (err) {
-        console.error("Error al buscar libros:", err);
+        console.error('Error al buscar libros:', err);
+        setSearchError('Error al buscar libros. Intenta de nuevo.');
+      } finally {
+        setSearchLoading(false);
       }
-    };
+    }, 300);
 
-    fetchLibros();
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
   }, [busqueda, seleccionados]);
 
   if (loadingInicial) {
@@ -154,14 +165,14 @@ const SelectionScreen1 = () => {
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
       />
-      <div className="libros-lista">
-        <div className="libros-fila">
-          {resultados.slice(0, 5).map((libro, index) => (
+      {searchLoading && <div className="ss1-loading">Cargando resultados...</div>}
+      {searchError && <div className="ss1-error">{searchError}</div>}
+      <div className="ss1-lista">
+        <div className="ss1-fila">
+          {resultados.slice(0, 5).map((libro) => (
             <div
-              key={index}
-              className={`libro-tarjeta ${
-                seleccionados.includes(libro.titulo) ? "seleccionado" : ""
-              }`}
+              key={`${libro.titulo}-${libro.autor}`}
+              className={`ss1-tarjeta ${seleccionados.includes(libro.titulo) ? 'seleccionado' : ''}`}
               onClick={() => toggleSeleccion(libro.titulo)}
             >
               <img
@@ -172,13 +183,11 @@ const SelectionScreen1 = () => {
             </div>
           ))}
         </div>
-        <div className="libros-fila">
-          {resultados.slice(5, 10).map((libro, index) => (
+        <div className="ss1-fila">
+          {resultados.slice(5, 10).map((libro) => (
             <div
-              key={index + 5}
-              className={`libro-tarjeta ${
-                seleccionados.includes(libro.titulo) ? "seleccionado" : ""
-              }`}
+              key={`${libro.titulo}-${libro.autor}`}
+              className={`ss1-tarjeta ${seleccionados.includes(libro.titulo) ? 'seleccionado' : ''}`}
               onClick={() => toggleSeleccion(libro.titulo)}
             >
               <img
