@@ -67,12 +67,14 @@ npm run dev
 
 ---
 
-💬 ¿Por qué este proyecto?
+## 💬 ¿Por qué este proyecto?
+
 La idea surgió de la necesidad de crear una experiencia de recomendación de libros que no se sienta como una base de datos seca, sino como una conversación con alguien que te conoce. Así nace un bot lector, curioso y atento a tus gustos. La estética, el rendimiento y la interacción fueron pilares clave del desarrollo.
 
 ---
 
-🧠 Proyecto creado por:
+## 🧠 Proyecto creado por:
+
 - @ Juan Esteban Velasco
 - @ Lina Marcela Landys
 - @ Manuela Rodríguez Dávila
@@ -87,5 +89,5 @@ dictada por el profesor José Moncada Quintero.
 
 ---
 
-Inspirado en el poder de los libros...
+### Inspirado en el poder de los libros...
 y el caos de las recomendaciones aleatorias sin alma 💀📚
