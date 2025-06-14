@@ -53,3 +53,39 @@ npm run dev
 - Vite
 - JSX
 - HTML5 / CSS
+- OpenAI (GPT)
+- Flask
+- n8n
+
+---
+
+## 🔗 Enlaces del proyecto
+- 🎨 Presentación en Behance: https://www.behance.net/gallery/228082671/Goodrecoms-AI-recommendation-system 
+- ⚙️ Back-end en Python: https://colab.research.google.com/drive/17RXVmx2VVg6eQMnEwFxDjP5ycGa_1v5B?usp=sharing
+- 🌍 Sitio en producción:
+- 📈 Python con datos estadístios: https://colab.research.google.com/drive/1bp-W2NV_kZKDRh6_EqitxTJGkzMWSKof?usp=sharing
+
+---
+
+💬 ¿Por qué este proyecto?
+La idea surgió de la necesidad de crear una experiencia de recomendación de libros que no se sienta como una base de datos seca, sino como una conversación con alguien que te conoce. Así nace un bot lector, curioso y atento a tus gustos. La estética, el rendimiento y la interacción fueron pilares clave del desarrollo.
+
+---
+
+🧠 Proyecto creado por:
+- @ Juan Esteban Velasco
+- @ Lina Marcela Landys
+- @ Manuela Rodríguez Dávila
+- @ José David Navia Sandoval
+- @ María Paula Ortiz
+- @ Camila Lerma Agredo
+
+© Estudiantes de Diseño de Medios Interactivos de la Universidad Icesi,
+para la materia Interacción Sociotecnológica,
+dictada por el profesor José Moncada Quintero.
+2025-1
+
+---
+
+Inspirado en el poder de los libros...
+y el caos de las recomendaciones aleatorias sin alma 💀📚

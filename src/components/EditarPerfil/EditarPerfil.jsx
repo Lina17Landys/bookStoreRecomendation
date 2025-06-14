@@ -160,7 +160,7 @@ const EditarPerfil = () => {
     <>
       <NavBar />
       <div id="editarperfil-container">
-        <h1>Editar perfil</h1>
+        <h2>Editar perfil</h2>
         <div className="tabs">
           <span
             className={activeTab === "perfil" ? "active-tab" : ""}
@@ -286,7 +286,7 @@ const EditarPerfil = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn cancelar"
+                  className="btn-cancelar"
                   onClick={handleCancel}
                 >
                   Cancelar
@@ -341,7 +341,7 @@ const EditarPerfil = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn cancelar"
+                  className="btn-cancelar"
                   onClick={handleCancel}
                 >
                   Cancelar

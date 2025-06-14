@@ -1,0 +1,216 @@
+{
+  "name": "chat tu amigo de libros",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "a772fc8d-cf3f-47ee-9465-50ffaffb32f2",
+      "name": "Telegram Trigger1",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        140
+      ],
+      "webhookId": "51aa5ab4-2d1c-4d6b-a52a-f65b1e9c96be",
+      "credentials": {
+        "telegramApi": {
+          "id": "KVmdxCXgKxqViGJf",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "chatId",
+              "value": "={{ $json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1d519b74-93ac-46eb-8a05-3a2bbbc25bb5",
+      "name": "Set - Preparar Datos1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -360,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Add a new field called 'myNewField' to the JSON of the item\n$input.item.json.myNewField = 1;\n\nreturn $input.item;"
+      },
+      "id": "db60ee7a-066d-41ef-8980-d14e269e1fb0",
+      "name": "Code - Fusionar Historial1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "value": "gpt-3.5-turbo",
+          "mode": "list"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Eres un asistente virtual amigable llamado 'Amigo de Lectura'. Tu función es recomendar libros según los gustos literarios del usuario. Haz preguntas iniciales para conocer sus intereses (géneros, autores, estilos). Después, sugiere libros específicos que puedan gustarle. Evita repetir mensajes anteriores al igual que la palabra hola. Responde siempre en español, de forma cálida y personalizada.",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ee0997aa-38e0-4de0-a065-0eb6929ac0e5",
+      "name": "OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        20,
+        80
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "E5n9NeCMlGtaxt9L",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "chatId",
+              "value": "={{ $node[\"Telegram Trigger1\"].json.message.chat.id }}\n"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.message.content }}"
+            },
+            {
+              "name": "reply_to_message_id",
+              "value": "={{ $node[\"Telegram Trigger1\"].json.message.chat.id }}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "279355eb-c53a-405f-af41-9bdc76c14c55",
+      "name": "Set - Empacar respuesta1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        380,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "03254fd8-8258-479b-ae17-ff2b91126217",
+      "name": "Telegram1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        140
+      ],
+      "webhookId": "1b8b1e35-208e-425d-8368-0c0840828f3e",
+      "credentials": {
+        "telegramApi": {
+          "id": "KVmdxCXgKxqViGJf",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set - Preparar Datos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set - Preparar Datos1": {
+      "main": [
+        [
+          {
+            "node": "Code - Fusionar Historial1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code - Fusionar Historial1": {
+      "main": [
+        [
+          {
+            "node": "OpenAI1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI1": {
+      "main": [
+        [
+          {
+            "node": "Set - Empacar respuesta1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set - Empacar respuesta1": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "459b0f6e-b5fa-4c97-bfbd-5b7c10caedd8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "693c19bc59426021fd61fcc1ee4d02c29738e6016122dd6aac309221b0bbf9ab"
+  },
+  "id": "RHIN38hGsh05VcWc",
+  "tags": []
+}
