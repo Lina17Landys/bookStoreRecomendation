@@ -21,7 +21,7 @@ const SelectionScreen1 = () => {
   const fetchIniciales = async () => {
     setLoadingInicial(true);
     try {
-      const res = await fetch("https://b7b4-34-125-154-37.ngrok-free.app/libros");
+      const res = await fetch("https://b7b4-34-125-154-37.ngrok-free.app");
       if (!res.ok) throw new Error("Respuesta no ok");
       const data = await res.json();
       setResultados(data.libros.slice(0, 10));
